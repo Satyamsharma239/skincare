@@ -31,8 +31,6 @@ export const CartDrawer = () => {
 
   const [couponInput, setCouponInput] = useState("");
 
-  if (!isCartOpen) return null;
-
   const handleApplyCoupon = (e) => {
     e.preventDefault();
     if (!couponInput.trim()) return;
@@ -42,12 +40,14 @@ export const CartDrawer = () => {
 
   const amountNeededForFreeShipping = Math.max(
     0,
-    settings.freeShippingThreshold - cartSubtotal
+    (settings?.freeShippingThreshold || 499) - cartSubtotal
   );
   const freeShippingProgress = Math.min(
     100,
-    (cartSubtotal / settings.freeShippingThreshold) * 100
+    (cartSubtotal / (settings?.freeShippingThreshold || 499)) * 100
   );
+
+  if (!isCartOpen) return null;
 
   return (
     <div className="modal-overlay" onClick={() => setIsCartOpen(false)} style={{ justifyContent: "flex-end", padding: 0 }}>

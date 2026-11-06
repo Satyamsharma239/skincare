@@ -28,32 +28,38 @@ export const TrackOrderModal = () => {
   const [matchedOrder, setMatchedOrder] = useState(null);
   const [searched, setSearched] = useState(false);
 
-  useEffect(() => {
-    if (trackingOrderId) {
-      setInputVal(trackingOrderId);
-      handleSearch(trackingOrderId);
-    } else if (orders.length > 0 && !matchedOrder) {
-      // Default to the latest order for convenience
-      setInputVal(orders[0].id);
-      handleSearch(orders[0].id);
-    }
-  }, [trackingOrderId, isTrackOrderOpen]);
-
-  if (!isTrackOrderOpen) return null;
-
   const handleSearch = (term) => {
-    const q = (term || inputVal).trim().toLowerCase();
+    const q = String(term || inputVal || "").trim().toLowerCase();
     if (!q) return;
 
     setSearched(true);
     const found = orders.find((o) => {
-      const matchId = o.id.toLowerCase() === q || o.id.toLowerCase().replace("lum-", "") === q.replace("lum-", "");
-      const matchPhone = o.customer?.phone?.replace(/[^0-9]/g, "").includes(q.replace(/[^0-9]/g, ""));
+      if (!o) return false;
+      const orderIdStr = String(o.id || "").toLowerCase();
+      const matchId = orderIdStr === q || orderIdStr.replace("lum-", "") === q.replace("lum-", "");
+      const phoneStr = String(o.customer?.phone || "").replace(/[^0-9]/g, "");
+      const matchPhone = phoneStr && phoneStr.includes(q.replace(/[^0-9]/g, ""));
       return matchId || matchPhone;
     });
 
     setMatchedOrder(found || null);
   };
+
+  useEffect(() => {
+    if (!isTrackOrderOpen) return;
+    if (trackingOrderId) {
+      setInputVal(trackingOrderId);
+      handleSearch(trackingOrderId);
+    } else if (orders.length > 0 && !matchedOrder) {
+      // Default to the latest order for convenience
+      setInputVal(orders[0]?.id || "");
+      if (orders[0]?.id) {
+        handleSearch(orders[0].id);
+      }
+    }
+  }, [trackingOrderId, isTrackOrderOpen]);
+
+  if (!isTrackOrderOpen) return null;
 
   const handleOpenWhatsAppConcierge = () => {
     const cleanPhone = settings.whatsappNumber.replace(/[^0-9]/g, "");

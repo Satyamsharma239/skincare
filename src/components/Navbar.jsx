@@ -51,14 +51,16 @@ export const Navbar = () => {
 
   // Filter live search results
   const searchResults = searchQuery.trim()
-    ? products.filter((p) => {
+    ? (products || []).filter((p) => {
+        if (!p) return false;
         const q = searchQuery.toLowerCase();
-        return (
-          p.name.toLowerCase().includes(q) ||
-          p.category.toLowerCase().includes(q) ||
-          p.keyActives?.toLowerCase().includes(q) ||
-          p.skinConcerns?.some((c) => c.toLowerCase().includes(q))
-        );
+        const nameMatch = p.name ? p.name.toLowerCase().includes(q) : false;
+        const categoryMatch = p.category ? p.category.toLowerCase().includes(q) : false;
+        const activesMatch = p.keyActives ? p.keyActives.toLowerCase().includes(q) : false;
+        const concernsMatch = Array.isArray(p.skinConcerns)
+          ? p.skinConcerns.some((c) => c && c.toLowerCase().includes(q))
+          : false;
+        return nameMatch || categoryMatch || activesMatch || concernsMatch;
       }).slice(0, 6)
     : [];
 

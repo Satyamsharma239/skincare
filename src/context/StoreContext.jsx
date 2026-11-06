@@ -4,7 +4,10 @@ import { DEFAULT_SETTINGS, INITIAL_COUPONS, INITIAL_SAMPLE_ORDERS } from "../dat
 import { lookupPincode } from "../data/pincodeData";
 
 const StoreContext = createContext(null);
-const API_BASE = (import.meta.env.VITE_API_BASE_URL || "").replace(/\/$/, "");
+const IS_DEV = Boolean(import.meta.env.DEV);
+const CONFIGURED_API = (import.meta.env.VITE_API_BASE_URL || "").replace(/\/$/, "");
+const SHOULD_SYNC_API = Boolean(CONFIGURED_API) || IS_DEV;
+const API_BASE = CONFIGURED_API;
 
 export const StoreProvider = ({ children }) => {
   // Settings
@@ -227,6 +230,7 @@ export const StoreProvider = ({ children }) => {
 
   // Live Cross-Port Synchronization Engine (Connects Customer Port 5173 & Admin Port 5174)
   useEffect(() => {
+    if (!SHOULD_SYNC_API) return; // 100% standalone frontend mode when deployed on Vercel without separate backend
     const fetchInitialData = async () => {
       try {
         const [prodRes, ordRes, coupRes, settRes] = await Promise.allSettled([

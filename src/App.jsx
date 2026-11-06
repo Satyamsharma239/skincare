@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Component } from "react";
+import React, { useState, useEffect, Component, lazy, Suspense } from "react";
 import { StoreProvider, useStore } from "./context/StoreContext";
 import { Navbar } from "./components/Navbar";
 import { Storefront } from "./components/Storefront";
@@ -11,14 +11,18 @@ import { ProductDetailModal } from "./components/ProductDetailModal";
 import { WhatsAppCheckoutModal } from "./components/WhatsAppCheckoutModal";
 import { OrderConfirmationModal } from "./components/OrderConfirmationModal";
 import { FloatingWhatsApp } from "./components/FloatingWhatsApp";
-import { AdminPortal } from "./components/admin/AdminPortal";
 import { CheckCircle2, AlertCircle, Info, RefreshCw } from "lucide-react";
+
+// Lazy-load the heavy Admin Portal chunk only when visiting /admin
+const AdminPortal = lazy(() =>
+  import("./components/admin/AdminPortal").then((m) => ({ default: m.AdminPortal }))
+);
 
 // Robust Error Boundary to guarantee ZERO blank white screens
 class ErrorBoundary extends Component {
   constructor(props) {
     super(props);
-    this.state = { hasError: false, error: null };
+    this.state = { hasError: false, error: null, showDetails: false };
   }
 
   static getDerivedStateFromError(error) {
@@ -31,12 +35,10 @@ class ErrorBoundary extends Component {
 
   handleReset = () => {
     try {
-      localStorage.removeItem("lumera_products");
-      localStorage.removeItem("lumera_orders");
-      localStorage.removeItem("lumera_settings");
-      localStorage.removeItem("lumera_cart");
+      localStorage.clear();
+      sessionStorage.clear();
     } catch (e) {}
-    window.location.reload();
+    window.location.href = "/";
   };
 
   render() {
@@ -55,7 +57,8 @@ class ErrorBoundary extends Component {
           textAlign: "center"
         }}>
           <div style={{
-            maxWidth: "480px",
+            maxWidth: "520px",
+            width: "100%",
             backgroundColor: "#FFFFFF",
             padding: "2.5rem 2rem",
             borderRadius: "16px",
@@ -67,8 +70,9 @@ class ErrorBoundary extends Component {
               LUMÈRA Clinical Skincare
             </h2>
             <p style={{ fontSize: "0.9rem", color: "#71717A", lineHeight: 1.5, margin: "0 0 1.5rem 0" }}>
-              The storefront encountered a temporary browser cache refresh. Click below to load fresh formulation catalog data.
+              The storefront encountered an initial browser initialization event. Click below to load the fresh formulation catalog.
             </p>
+
             <button
               onClick={this.handleReset}
               style={{
@@ -82,12 +86,49 @@ class ErrorBoundary extends Component {
                 borderRadius: "999px",
                 fontWeight: 700,
                 fontSize: "0.9rem",
-                cursor: "pointer"
+                cursor: "pointer",
+                marginBottom: "1rem"
               }}
             >
               <RefreshCw size={15} />
               <span>Refresh & Load Store</span>
             </button>
+
+            {this.state.error && (
+              <div style={{ marginTop: "1rem", textAlign: "left" }}>
+                <button
+                  type="button"
+                  onClick={() => this.setState({ showDetails: !this.state.showDetails })}
+                  style={{
+                    background: "none",
+                    border: "none",
+                    color: "#9CA3AF",
+                    fontSize: "0.75rem",
+                    cursor: "pointer",
+                    textDecoration: "underline"
+                  }}
+                >
+                  {this.state.showDetails ? "Hide Error Details" : "Show Error Diagnostics"}
+                </button>
+                {this.state.showDetails && (
+                  <pre style={{
+                    marginTop: "0.5rem",
+                    padding: "0.75rem",
+                    backgroundColor: "#FEF2F2",
+                    color: "#B91C1C",
+                    fontSize: "0.72rem",
+                    borderRadius: "8px",
+                    overflowX: "auto",
+                    whiteSpace: "pre-wrap",
+                    wordBreak: "break-all"
+                  }}>
+                    {String(this.state.error?.message || this.state.error)}
+                    {"\n\n"}
+                    {String(this.state.error?.stack || "")}
+                  </pre>
+                )}
+              </div>
+            )}
           </div>
         </div>
       );
@@ -118,7 +159,16 @@ const AppContent = () => {
   if (isAdminRoute) {
     return (
       <div>
-        <AdminPortal />
+        <Suspense fallback={
+          <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", backgroundColor: "#141715", color: "#FAF8F5" }}>
+            <div style={{ textAlign: "center" }}>
+              <div style={{ fontSize: "2rem", marginBottom: "0.5rem" }}>🌿</div>
+              <div style={{ fontWeight: 700 }}>Loading Laboratory Portal...</div>
+            </div>
+          </div>
+        }>
+          <AdminPortal />
+        </Suspense>
         {toastMessage && (
           <div className="toast-container">
             <div className="toast-message">

@@ -24,10 +24,6 @@ export const WishlistDrawer = () => {
     showToast
   } = useStore();
 
-  if (!isWishlistOpen) return null;
-
-  const wishlistProducts = products.filter((p) => wishlist.includes(p.id));
-
   const handleMoveAllToBag = () => {
     if (wishlistProducts.length === 0) return;
     wishlistProducts.forEach((prod) => {
@@ -44,6 +40,10 @@ export const WishlistDrawer = () => {
     if (category === "Bundles") return "/lumera-hero.jpg";
     return "/serum-dropper.jpg";
   };
+
+  if (!isWishlistOpen) return null;
+
+  const wishlistProducts = (products || []).filter((p) => p && wishlist.includes(p.id));
 
   return (
     <div

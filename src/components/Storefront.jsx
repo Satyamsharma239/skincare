@@ -25,31 +25,32 @@ export const Storefront = () => {
   const [sortBy, setSortBy] = useState("featured");
 
   const filteredProducts = useMemo(() => {
-    return products.filter((p) => {
+    return (products || []).filter((p) => {
+      if (!p) return false;
       if (selectedCategoryFilter !== "All Products" && p.category !== selectedCategoryFilter) {
         return false;
       }
       if (
         selectedConcernFilter !== "All Concerns" &&
-        (!p.skinConcerns || !p.skinConcerns.includes(selectedConcernFilter))
+        (!Array.isArray(p.skinConcerns) || !p.skinConcerns.includes(selectedConcernFilter))
       ) {
         return false;
       }
       if (searchQuery.trim()) {
         const q = searchQuery.toLowerCase();
-        const matchesName = p.name.toLowerCase().includes(q);
+        const matchesName = p.name ? p.name.toLowerCase().includes(q) : false;
         const matchesActives = p.keyActives?.toLowerCase().includes(q);
         const matchesSubtitle = p.subtitle?.toLowerCase().includes(q);
-        const matchesCategory = p.category.toLowerCase().includes(q);
+        const matchesCategory = p.category ? p.category.toLowerCase().includes(q) : false;
         if (!matchesName && !matchesActives && !matchesSubtitle && !matchesCategory) {
           return false;
         }
       }
       return true;
     }).sort((a, b) => {
-      if (sortBy === "price-asc") return a.price - b.price;
-      if (sortBy === "price-desc") return b.price - a.price;
-      if (sortBy === "rating") return b.rating - a.rating;
+      if (sortBy === "price-asc") return (a.price || 0) - (b.price || 0);
+      if (sortBy === "price-desc") return (b.price || 0) - (a.price || 0);
+      if (sortBy === "rating") return (b.rating || 0) - (a.rating || 0);
       return 0;
     });
   }, [products, selectedCategoryFilter, selectedConcernFilter, searchQuery, sortBy]);

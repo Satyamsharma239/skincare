@@ -11,7 +11,7 @@ export const StoreProvider = ({ children }) => {
   const [settings, setSettings] = useState(() => {
     try {
       const saved = localStorage.getItem("lumera_settings");
-      return saved ? JSON.parse(saved) : DEFAULT_SETTINGS;
+      return saved ? { ...DEFAULT_SETTINGS, ...JSON.parse(saved) } : DEFAULT_SETTINGS;
     } catch {
       return DEFAULT_SETTINGS;
     }
@@ -39,7 +39,13 @@ export const StoreProvider = ({ children }) => {
   const [orders, setOrders] = useState(() => {
     try {
       const saved = localStorage.getItem("lumera_orders");
-      return saved ? JSON.parse(saved) : INITIAL_SAMPLE_ORDERS;
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          return parsed.filter((o) => o && o.id);
+        }
+      }
+      return INITIAL_SAMPLE_ORDERS;
     } catch {
       return INITIAL_SAMPLE_ORDERS;
     }
@@ -67,7 +73,13 @@ export const StoreProvider = ({ children }) => {
   const [cart, setCart] = useState(() => {
     try {
       const saved = localStorage.getItem("lumera_cart");
-      return saved ? JSON.parse(saved) : [];
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed)) {
+          return parsed.filter((it) => it && it.product && typeof it.product.price === "number");
+        }
+      }
+      return [];
     } catch {
       return [];
     }
@@ -285,11 +297,11 @@ export const StoreProvider = ({ children }) => {
 
   // Cart Calculations
   const cartSubtotal = cart.reduce(
-    (sum, item) => sum + item.product.price * item.quantity,
+    (sum, item) => sum + (item?.product?.price || 0) * (item?.quantity || 1),
     0
   );
 
-  const cartCount = cart.reduce((count, item) => count + item.quantity, 0);
+  const cartCount = cart.reduce((count, item) => count + (item?.quantity || 0), 0);
 
   // Discount calculation
   let discountAmount = 0;

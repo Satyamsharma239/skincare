@@ -1408,8 +1408,7 @@ export const AdminOrders = () => {
                         onChange={(e) => setEditFormData({ ...editFormData, estimatedDays: e.target.value })}
                         placeholder="e.g. 2 - 3 Business Days"
                         style={{ width: "100%", padding: "0.55rem 0.75rem", borderRadius: "var(--radius-sm)", border: "1px solid var(--border-medium)", fontSize: "0.84rem" }}
-                      >
-                      </input>
+                      />
                     </div>
 
                     <div>

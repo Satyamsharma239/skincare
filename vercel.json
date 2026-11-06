@@ -1,15 +1,16 @@
 {
+  "cleanUrls": true,
   "rewrites": [
     {
       "source": "/admin",
-      "destination": "/admin.html"
+      "destination": "/index.html"
     },
     {
-      "source": "/admin/(.*)",
-      "destination": "/admin.html"
+      "source": "/admin/:path*",
+      "destination": "/index.html"
     },
     {
-      "source": "/(.*)",
+      "source": "/((?!assets/|public/|.*\\..*).*)",
       "destination": "/index.html"
     }
   ]

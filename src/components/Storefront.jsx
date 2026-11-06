@@ -77,14 +77,11 @@ export const Storefront = () => {
       {/* Trust & Assurance Banner */}
       <TrustStrip />
 
-      {/* 2. Curated Offers & Value Bundles */}
-      <OffersSection />
-
-      {/* 3. Concern Filter Bar */}
+      {/* 2. Concern Filter Bar */}
       <SkinConcernsBar />
 
-      {/* 4. Catalog Section */}
-      <section id="catalog-section" style={{ padding: "5rem 0", backgroundColor: "var(--bg-primary)" }}>
+      {/* 3. Primary Catalog Section - Product Cards Immediately Accessible */}
+      <section id="catalog-section" style={{ padding: "3rem 0 4rem 0", backgroundColor: "var(--bg-primary)" }}>
         <div className="container">
           
           {/* Header & Controls */}
@@ -269,6 +266,9 @@ export const Storefront = () => {
 
         </div>
       </section>
+
+      {/* 4. Curated Value Combos & Regimens (Save up to 33%) */}
+      <OffersSection />
 
       {/* 5. Real Customer Reviews & Glow Stories (Social Proof) */}
       <ReviewsSection />

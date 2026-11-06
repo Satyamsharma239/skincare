@@ -198,13 +198,25 @@ export const ProductCard = ({ product }) => {
         </p>
 
         {/* Price Row */}
-        <div style={{ display: "flex", alignItems: "baseline", gap: "0.5rem", marginTop: "auto", marginBottom: "0.85rem" }}>
-          <span className="card-price-main" style={{ fontSize: "1.2rem", fontWeight: 800, color: "var(--text-primary)" }}>
+        <div style={{ display: "flex", alignItems: "baseline", gap: "0.45rem", flexWrap: "wrap", marginTop: "auto", marginBottom: "0.85rem" }}>
+          <span className="card-price-main" style={{ fontSize: "1.15rem", fontWeight: 800, color: "var(--text-primary)" }}>
             {settings.currency}{product.price}
           </span>
           {product.originalPrice && product.originalPrice > product.price && (
-            <span style={{ fontSize: "0.82rem", textDecoration: "line-through", color: "var(--text-muted)" }}>
+            <span style={{ fontSize: "0.8rem", textDecoration: "line-through", color: "var(--text-muted)" }}>
               {settings.currency}{product.originalPrice}
+            </span>
+          )}
+          {discountPercent > 0 && (
+            <span style={{
+              fontSize: "0.68rem",
+              fontWeight: 700,
+              color: "#15803D",
+              backgroundColor: "#DCFCE7",
+              padding: "0.12rem 0.4rem",
+              borderRadius: "var(--radius-xs)"
+            }}>
+              {discountPercent}% OFF
             </span>
           )}
         </div>

@@ -151,7 +151,7 @@ export const Navbar = () => {
 
       {/* 2. Main E-Commerce Header Bar */}
       <div style={{ borderBottom: "1px solid var(--border-light)", backgroundColor: "#FFFFFF" }}>
-        <div className="container" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", height: "72px", gap: "1.5rem" }}>
+        <div className="container" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", height: "64px", gap: "1.25rem" }}>
           
           {/* Left: Mobile Hamburger & Luxury Logo */}
           <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>

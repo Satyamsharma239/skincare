@@ -16,7 +16,7 @@ export const OffersSection = () => {
 
   return (
     <section id="offers-section" style={{
-      padding: "5rem 0",
+      padding: "3.5rem 0",
       backgroundColor: "#FAFAF9",
       borderTop: "1px solid var(--border-light)",
       borderBottom: "1px solid var(--border-light)"

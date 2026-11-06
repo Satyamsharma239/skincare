@@ -233,7 +233,7 @@ const server = http.createServer(async (req, res) => {
   res.end(JSON.stringify({ error: 'Endpoint not found' }));
 });
 
-const PORT = 5001;
+const PORT = process.env.PORT || 5001;
 // Bootstrap DB at startup
 getDb();
 

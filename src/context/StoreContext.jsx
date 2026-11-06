@@ -4,6 +4,7 @@ import { DEFAULT_SETTINGS, INITIAL_COUPONS, INITIAL_SAMPLE_ORDERS } from "../dat
 import { lookupPincode } from "../data/pincodeData";
 
 const StoreContext = createContext(null);
+const API_BASE = (import.meta.env.VITE_API_BASE_URL || "").replace(/\/$/, "");
 
 export const StoreProvider = ({ children }) => {
   // Settings
@@ -217,10 +218,10 @@ export const StoreProvider = ({ children }) => {
     const fetchInitialData = async () => {
       try {
         const [prodRes, ordRes, coupRes, settRes] = await Promise.allSettled([
-          fetch("/api/products"),
-          fetch("/api/orders"),
-          fetch("/api/coupons"),
-          fetch("/api/settings")
+          fetch(`${API_BASE}/api/products`),
+          fetch(`${API_BASE}/api/orders`),
+          fetch(`${API_BASE}/api/coupons`),
+          fetch(`${API_BASE}/api/settings`)
         ]);
 
         if (prodRes.status === "fulfilled" && prodRes.value.ok) {
@@ -249,7 +250,7 @@ export const StoreProvider = ({ children }) => {
     // Auto-refresh orders every 3.5s so Admin sees new customer orders in real time
     const syncInterval = setInterval(async () => {
       try {
-        const ordRes = await fetch("/api/orders");
+        const ordRes = await fetch(`${API_BASE}/api/orders`);
         if (ordRes.ok) {
           const ords = await ordRes.json();
           if (Array.isArray(ords)) {
@@ -402,7 +403,7 @@ export const StoreProvider = ({ children }) => {
       reviewsCount: newProd.reviewsCount || 0
     };
     setProducts((prev) => [prod, ...prev]);
-    fetch("/api/products", {
+    fetch(`${API_BASE}/api/products`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(prod)
@@ -415,7 +416,7 @@ export const StoreProvider = ({ children }) => {
     setProducts((prev) =>
       prev.map((p) => (p.id === id ? { ...p, ...updatedFields } : p))
     );
-    fetch(`/api/products/${id}`, {
+    fetch(`${API_BASE}/api/products/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(updatedFields)
@@ -425,7 +426,7 @@ export const StoreProvider = ({ children }) => {
 
   const deleteProduct = (id) => {
     setProducts((prev) => prev.filter((p) => p.id !== id));
-    fetch(`/api/products/${id}`, { method: "DELETE" }).catch(() => {});
+    fetch(`${API_BASE}/api/products/${id}`, { method: "DELETE" }).catch(() => {});
     showToast("Formulation deleted", "info");
   };
 
@@ -434,7 +435,7 @@ export const StoreProvider = ({ children }) => {
       prev.map((p) => {
         if (p.id === id) {
           const updated = { ...p, inStock: !p.inStock };
-          fetch(`/api/products/${id}`, {
+          fetch(`${API_BASE}/api/products/${id}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ inStock: updated.inStock })
@@ -452,7 +453,7 @@ export const StoreProvider = ({ children }) => {
     setOrders((prev) =>
       prev.map((o) => (o.id === orderId ? { ...o, status: newStatus } : o))
     );
-    fetch(`/api/orders/${orderId}`, {
+    fetch(`${API_BASE}/api/orders/${orderId}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ status: newStatus })
@@ -462,7 +463,7 @@ export const StoreProvider = ({ children }) => {
 
   const deleteOrder = (orderId) => {
     setOrders((prev) => prev.filter((o) => o.id !== orderId));
-    fetch(`/api/orders/${orderId}`, { method: "DELETE" }).catch(() => {});
+    fetch(`${API_BASE}/api/orders/${orderId}`, { method: "DELETE" }).catch(() => {});
     showToast("Order removed", "info");
   };
 
@@ -509,7 +510,7 @@ export const StoreProvider = ({ children }) => {
     };
 
     setOrders((prev) => [newOrder, ...prev]);
-    fetch("/api/orders", {
+    fetch(`${API_BASE}/api/orders`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newOrder)
@@ -574,7 +575,7 @@ export const StoreProvider = ({ children }) => {
 
     // Save to Live Admin Orders Log!
     setOrders((prev) => [newOrder, ...prev]);
-    fetch("/api/orders", {
+    fetch(`${API_BASE}/api/orders`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newOrder)

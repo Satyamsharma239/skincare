@@ -247,11 +247,14 @@ export const StoreProvider = ({ children }) => {
 
     fetchInitialData();
 
-    // Auto-refresh orders every 3.5s so Admin sees new customer orders in real time
+    // Auto-refresh orders every 3.5s only if backend API is active
+    let consecutiveErrors = 0;
     const syncInterval = setInterval(async () => {
+      if (consecutiveErrors >= 3) return; // Silent stop if running in 100% standalone frontend mode
       try {
         const ordRes = await fetch(`${API_BASE}/api/orders`);
         if (ordRes.ok) {
+          consecutiveErrors = 0;
           const ords = await ordRes.json();
           if (Array.isArray(ords)) {
             setOrders((prev) => {
@@ -261,8 +264,12 @@ export const StoreProvider = ({ children }) => {
               return prev;
             });
           }
+        } else {
+          consecutiveErrors++;
         }
-      } catch (e) {}
+      } catch (e) {
+        consecutiveErrors++;
+      }
     }, 3500);
 
     return () => clearInterval(syncInterval);

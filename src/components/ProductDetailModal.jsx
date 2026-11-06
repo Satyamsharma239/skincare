@@ -278,13 +278,16 @@ export const ProductDetailModal = () => {
                   className="btn btn-secondary"
                   style={{ 
                     flexGrow: 1, 
-                    padding: "0.8rem 1rem",
+                    padding: "0.85rem 1rem",
+                    border: "1.5px solid #18181B",
+                    borderRadius: "999px",
+                    fontWeight: 700,
                     opacity: product.inStock ? 1 : 0.6,
                     cursor: product.inStock ? "pointer" : "not-allowed"
                   }}
                 >
                   <ShoppingBag size={16} />
-                  <span>{product.inStock ? `Add to Bag (${settings.currency}${product.price * quantity})` : "Out of Stock"}</span>
+                  <span>{product.inStock ? `Add to Cart (${settings.currency}${product.price * quantity})` : "Out of Stock"}</span>
                 </button>
               </div>
 
@@ -301,7 +304,11 @@ export const ProductDetailModal = () => {
                   width: "100%",
                   padding: "0.95rem",
                   fontSize: "0.92rem",
-                  fontWeight: 600,
+                  fontWeight: 700,
+                  backgroundColor: "#18181B",
+                  color: "#FFFFFF",
+                  border: "1.5px solid #18181B",
+                  borderRadius: "999px",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
@@ -310,13 +317,12 @@ export const ProductDetailModal = () => {
                   cursor: product.inStock ? "pointer" : "not-allowed"
                 }}
               >
-                <MessageCircle size={17} />
-                <span>{product.inStock ? "Quick Buy via WhatsApp (COD)" : "Currently Sold Out"}</span>
+                <span>{product.inStock ? "Buy Now (Cash on Delivery / UPI)" : "Currently Sold Out"}</span>
                 <ArrowRight size={15} />
               </button>
 
-              <div style={{ textAlign: "center", fontSize: "0.74rem", color: "var(--text-muted)", marginTop: "-0.2rem" }}>
-                ✓ Instant redirect to WhatsApp • Verified BlueDart/Delhivery tracking • COD Available
+              <div style={{ textAlign: "center", fontSize: "0.76rem", color: "var(--text-muted)", marginTop: "-0.2rem" }}>
+                ✓ Instant Guest Checkout (No Login Required) • Doorstep COD • Express Dispatch
               </div>
 
               <button

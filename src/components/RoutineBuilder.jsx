@@ -315,7 +315,7 @@ export const RoutineBuilder = () => {
               style={{ backgroundColor: "#FAF8F5", color: "#181917", border: "none" }}
             >
               <ShoppingBag size={15} />
-              <span>Add All to Bag</span>
+              <span>Add All to Cart</span>
             </button>
 
             <button

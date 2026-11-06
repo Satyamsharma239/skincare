@@ -148,24 +148,23 @@ export const OffersSection = () => {
                 </span>
               </div>
 
-              <div style={{ display: "grid", gridTemplateColumns: "1.3fr 1fr", gap: "0.6rem" }}>
+              <div style={{ display: "grid", gridTemplateColumns: "1.2fr 1fr", gap: "0.6rem" }}>
                 <button
                   onClick={() => openExpressCheckout(trioProduct, 1)}
                   className="btn btn-whatsapp"
-                  style={{ width: "100%", padding: "0.75rem 0.6rem", fontSize: "0.84rem" }}
-                  title="Order bundle directly via WhatsApp"
+                  style={{ width: "100%", padding: "0.75rem 0.6rem", fontSize: "0.84rem", backgroundColor: "#18181B", color: "#FFFFFF", borderRadius: "999px" }}
+                  title="Direct express order"
                 >
-                  <MessageSquareText size={14} />
-                  <span>Quick Buy</span>
+                  <span>Buy Now</span>
                 </button>
 
                 <button
                   onClick={() => addToCart(trioProduct)}
                   className="btn btn-secondary"
-                  style={{ width: "100%", padding: "0.75rem 0.6rem", fontSize: "0.84rem" }}
+                  style={{ width: "100%", padding: "0.75rem 0.6rem", fontSize: "0.84rem", border: "1.5px solid #18181B", borderRadius: "999px", color: "#18181B" }}
                 >
                   <ShoppingBag size={14} />
-                  <span>Add to Bag</span>
+                  <span>Add to Cart</span>
                 </button>
               </div>
             </div>
@@ -254,24 +253,23 @@ export const OffersSection = () => {
                 </span>
               </div>
 
-              <div style={{ display: "grid", gridTemplateColumns: "1.3fr 1fr", gap: "0.6rem" }}>
+              <div style={{ display: "grid", gridTemplateColumns: "1.2fr 1fr", gap: "0.6rem" }}>
                 <button
                   onClick={() => openExpressCheckout(vaultProduct, 1)}
                   className="btn btn-whatsapp"
-                  style={{ width: "100%", padding: "0.75rem 0.6rem", fontSize: "0.84rem" }}
-                  title="Order bundle directly via WhatsApp"
+                  style={{ width: "100%", padding: "0.75rem 0.6rem", fontSize: "0.84rem", backgroundColor: "#18181B", color: "#FFFFFF", borderRadius: "999px" }}
+                  title="Direct express order"
                 >
-                  <MessageSquareText size={14} />
-                  <span>Quick Buy</span>
+                  <span>Buy Now</span>
                 </button>
 
                 <button
                   onClick={() => addToCart(vaultProduct)}
                   className="btn btn-secondary"
-                  style={{ width: "100%", padding: "0.75rem 0.6rem", fontSize: "0.84rem" }}
+                  style={{ width: "100%", padding: "0.75rem 0.6rem", fontSize: "0.84rem", border: "1.5px solid #18181B", borderRadius: "999px", color: "#18181B" }}
                 >
                   <ShoppingBag size={14} />
-                  <span>Add to Bag</span>
+                  <span>Add to Cart</span>
                 </button>
               </div>
             </div>

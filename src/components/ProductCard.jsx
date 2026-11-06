@@ -221,28 +221,32 @@ export const ProductCard = ({ product }) => {
           )}
         </div>
 
-        {/* Dual Actions: Quick Buy (WhatsApp) & Bag - Luxury Monochrome Duo */}
-        <div className="card-actions" style={{ display: "grid", gridTemplateColumns: "1.2fr 1fr", gap: "0.45rem" }}>
+        {/* Dual Actions: Buy Now & Add to Cart */}
+        <div className="card-actions" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.45rem" }}>
           <button
             onClick={handleBuyNow}
             disabled={!product.inStock}
             className="btn btn-whatsapp"
             style={{ 
               width: "100%", 
-              fontSize: "0.8rem",
-              padding: "0.55rem 0.4rem",
+              fontSize: "clamp(0.74rem, 1.8vw, 0.82rem)", 
+              padding: "0.55rem 0.25rem",
               fontWeight: 700,
               borderRadius: "var(--radius-full)",
               backgroundColor: "#18181B",
               color: "#FFFFFF",
               border: "1.5px solid #18181B",
               opacity: product.inStock ? 1 : 0.5,
-              cursor: product.inStock ? "pointer" : "not-allowed"
+              cursor: product.inStock ? "pointer" : "not-allowed",
+              display: "inline-flex",
+              alignItems: "center",
+              justifyContent: "center",
+              whiteSpace: "nowrap",
+              gap: "0.25rem"
             }}
-            title={product.inStock ? "Order directly via WhatsApp Express" : "Currently Out of Stock"}
+            title={product.inStock ? "Direct Checkout (COD / Online)" : "Currently Out of Stock"}
           >
-            <MessageSquareText size={13} />
-            <span>{product.inStock ? "Quick Buy" : "Sold Out"}</span>
+            <span>{product.inStock ? "Buy Now" : "Sold Out"}</span>
           </button>
 
           <button
@@ -251,19 +255,25 @@ export const ProductCard = ({ product }) => {
             className="btn btn-secondary"
             style={{ 
               width: "100%", 
-              fontSize: "0.78rem",
-              padding: "0.55rem 0.35rem",
+              fontSize: "clamp(0.72rem, 1.7vw, 0.8rem)", 
+              padding: "0.55rem 0.25rem",
               fontWeight: 600,
               borderRadius: "var(--radius-full)",
               backgroundColor: "#FFFFFF",
-              border: "1px solid var(--border-medium)",
+              color: "#18181B",
+              border: "1.5px solid var(--border-medium)",
               opacity: product.inStock ? 1 : 0.5,
-              cursor: product.inStock ? "pointer" : "not-allowed"
+              cursor: product.inStock ? "pointer" : "not-allowed",
+              display: "inline-flex",
+              alignItems: "center",
+              justifyContent: "center",
+              whiteSpace: "nowrap",
+              gap: "0.25rem"
             }}
-            title={product.inStock ? "Add to shopping bag" : "Currently Out of Stock"}
+            title={product.inStock ? "Add to cart" : "Currently Out of Stock"}
           >
-            <ShoppingBag size={13} />
-            <span>{product.inStock ? "Bag" : "Out"}</span>
+            <ShoppingBag size={12} />
+            <span>{product.inStock ? "Add to Cart" : "Out"}</span>
           </button>
         </div>
 

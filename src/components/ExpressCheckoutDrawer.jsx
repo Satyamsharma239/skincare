@@ -271,6 +271,27 @@ export const ExpressCheckoutDrawer = () => {
           )}
         </div>
 
+        {/* Instant Guest Checkout Assurance Banner */}
+        <div style={{
+          backgroundColor: "#F4F4F5",
+          borderBottom: "1px solid var(--border-light)",
+          padding: "0.55rem 1.75rem",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          fontSize: "0.76rem",
+          color: "#18181B",
+          fontWeight: 600
+        }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}>
+            <ShieldCheck size={14} color="#16A34A" />
+            <span>Instant Guest Checkout • No Login or Password Required</span>
+          </div>
+          <span style={{ fontSize: "0.7rem", color: "#71717A", textTransform: "uppercase", letterSpacing: "0.04em" }}>
+            Doorstep COD
+          </span>
+        </div>
+
         {/* Scrollable Form Body */}
         <form onSubmit={handleSubmit} style={{ flexGrow: 1, overflowY: "auto", padding: "1.5rem 1.75rem" }}>
           
@@ -697,7 +718,11 @@ export const ExpressCheckoutDrawer = () => {
                 width: "100%",
                 padding: "1rem",
                 fontSize: "0.96rem",
-                fontWeight: 600,
+                fontWeight: 700,
+                backgroundColor: "#18181B",
+                color: "#FFFFFF",
+                borderRadius: "999px",
+                border: "1.5px solid #18181B",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -705,7 +730,7 @@ export const ExpressCheckoutDrawer = () => {
               }}
             >
               <MessageSquareText size={18} />
-              <span>Confirm & Order via WhatsApp ({settings.currency}{computedTotal})</span>
+              <span>Confirm & Place Order ({settings.currency}{computedTotal})</span>
               <ArrowRight size={17} />
             </button>
 

@@ -304,13 +304,6 @@ export const Navbar = () => {
               }}
               title="Order directly on WhatsApp"
             >
-              <div style={{
-                width: "7px",
-                height: "7px",
-                borderRadius: "50%",
-                backgroundColor: "#22C55E",
-                boxShadow: "0 0 6px #22C55E"
-              }} />
               <MessageSquareText size={15} />
               <span>Order on WhatsApp</span>
             </button>
@@ -350,7 +343,7 @@ export const Navbar = () => {
               )}
             </button>
 
-            {/* Shopping Bag Button */}
+            {/* Shopping Cart Button */}
             <button 
               onClick={() => setIsCartOpen(true)}
               style={{
@@ -368,9 +361,10 @@ export const Navbar = () => {
                 transition: "all 0.15s ease"
               }}
               className="bag-nav-btn"
+              title="Shopping Cart"
             >
               <ShoppingBag size={17} strokeWidth={2} />
-              <span>{cartCount === 0 ? "Bag" : `Bag (${cartCount})`}</span>
+              <span>{cartCount === 0 ? "Cart" : `Cart (${cartCount})`}</span>
             </button>
 
           </div>

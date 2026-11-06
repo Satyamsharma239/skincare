@@ -22,14 +22,7 @@ export const FloatingWhatsApp = () => {
       aria-label="Direct WhatsApp Concierge"
       title="Instant WhatsApp assistance and order guidance"
     >
-      <div style={{
-        width: "8px",
-        height: "8px",
-        borderRadius: "50%",
-        backgroundColor: "#25D366",
-        boxShadow: "0 0 6px #25D366"
-      }} />
-      <MessageSquareText size={17} />
+      <MessageSquareText size={18} />
       <span style={{ letterSpacing: "0.01em", fontWeight: 700 }}>WhatsApp Us</span>
     </button>
   );

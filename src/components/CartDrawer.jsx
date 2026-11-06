@@ -76,7 +76,7 @@ export const CartDrawer = () => {
         }}>
           <div>
             <h3 style={{ fontSize: "1.15rem", fontWeight: 700, fontFamily: "var(--font-display)", margin: 0, letterSpacing: "-0.01em" }}>
-              Shopping Bag
+              Shopping Cart
             </h3>
             <span style={{ fontSize: "0.74rem", color: "var(--text-muted)" }}>
               {cart.reduce((sum, it) => sum + it.quantity, 0)} {cart.length === 1 ? "item" : "items"}
@@ -329,7 +329,7 @@ export const CartDrawer = () => {
               </div>
             </div>
 
-            {/* Proceed to Checkout Action */}
+            {/* Proceed to Checkout Action - Luxury Obsidian Black */}
             <button
               onClick={() => {
                 openExpressCheckout(null);
@@ -338,21 +338,24 @@ export const CartDrawer = () => {
               style={{
                 width: "100%",
                 padding: "0.95rem",
-                fontWeight: 600,
+                fontWeight: 700,
                 fontSize: "0.94rem",
+                backgroundColor: "#18181B",
+                color: "#FFFFFF",
+                borderRadius: "999px",
+                border: "1.5px solid #18181B",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
                 gap: "0.5rem"
               }}
             >
-              <MessageCircle size={18} />
-              <span>Checkout via WhatsApp ({settings.currency}{cartTotal})</span>
+              <span>Proceed to Checkout ({settings.currency}{cartTotal})</span>
               <ArrowRight size={16} />
             </button>
 
             <div style={{ textAlign: "center", fontSize: "0.74rem", color: "var(--text-muted)", marginTop: "0.5rem" }}>
-              🔒 Dispatched directly to WhatsApp • COD & UPI Accepted
+              ✓ Instant Guest Checkout (No Login Required) • Doorstep COD & UPI
             </div>
           </div>
         )}

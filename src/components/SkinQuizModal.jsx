@@ -288,7 +288,7 @@ export const SkinQuizModal = () => {
                 style={{ width: "100%", padding: "0.85rem" }}
               >
                 <ShoppingBag size={16} />
-                <span>Add Prescribed Regimen to Bag</span>
+                <span>Add Prescribed Regimen to Cart</span>
               </button>
 
               <button

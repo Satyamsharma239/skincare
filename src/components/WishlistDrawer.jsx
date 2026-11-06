@@ -302,19 +302,22 @@ export const WishlistDrawer = () => {
                           onClick={() => {
                             addToCart(prod, 1);
                           }}
-                          className="btn btn-primary"
+                          className="btn btn-secondary"
                           style={{
                             padding: "0.4rem 0.85rem",
                             fontSize: "0.76rem",
-                            fontWeight: 700,
+                            fontWeight: 600,
                             borderRadius: "var(--radius-full)",
+                            backgroundColor: "#FFFFFF",
+                            color: "#18181B",
+                            border: "1.5px solid var(--border-medium)",
                             display: "inline-flex",
                             alignItems: "center",
                             gap: "0.3rem"
                           }}
                         >
                           <ShoppingBag size={13} />
-                          <span>Add to Bag</span>
+                          <span>Add to Cart</span>
                         </button>
 
                         <button
@@ -322,22 +325,22 @@ export const WishlistDrawer = () => {
                             setIsWishlistOpen(false);
                             openExpressCheckout(prod, 1);
                           }}
-                          className="btn btn-whatsapp"
+                          className="btn btn-primary"
                           style={{
                             padding: "0.4rem 0.75rem",
                             fontSize: "0.76rem",
                             fontWeight: 700,
                             borderRadius: "var(--radius-full)",
-                            backgroundColor: "#25D366",
+                            backgroundColor: "#18181B",
                             color: "#FFFFFF",
+                            border: "1.5px solid #18181B",
                             display: "inline-flex",
                             alignItems: "center",
                             gap: "0.3rem"
                           }}
-                          title="Instant WhatsApp Checkout"
+                          title="Instant Checkout"
                         >
-                          <MessageSquareText size={13} />
-                          <span>Buy</span>
+                          <span>Buy Now</span>
                         </button>
                       </div>
                     </div>
@@ -376,7 +379,7 @@ export const WishlistDrawer = () => {
               }}
             >
               <ShoppingBag size={17} />
-              <span>Move All to Bag ({wishlistProducts.length} Items)</span>
+              <span>Move All to Cart ({wishlistProducts.length} Items)</span>
             </button>
 
             <button

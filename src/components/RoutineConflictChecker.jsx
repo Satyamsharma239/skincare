@@ -209,7 +209,7 @@ export const RoutineConflictChecker = () => {
                     style={{ backgroundColor: "var(--accent-forest)" }}
                   >
                     <ShoppingBag size={14} />
-                    <span>Add Pair to Bag ({settings.currency}{productA.price + productB.price})</span>
+                    <span>Add Pair to Cart ({settings.currency}{productA.price + productB.price})</span>
                   </button>
                 </div>
               )}

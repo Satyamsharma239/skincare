@@ -193,13 +193,6 @@ export const HeroSection = () => {
                   }}
                   className="hero-secondary-btn"
                 >
-                  <div style={{
-                    width: "7px",
-                    height: "7px",
-                    borderRadius: "50%",
-                    backgroundColor: "#22C55E",
-                    boxShadow: "0 0 6px #22C55E"
-                  }} />
                   <MessageSquareText size={16} />
                   <span>Order via WhatsApp (COD)</span>
                 </button>
@@ -322,7 +315,7 @@ export const HeroSection = () => {
                       gap: "0.35rem"
                     }}
                   >
-                    <span>Quick Buy</span>
+                    <span>Buy Now</span>
                     <ArrowRight size={13} />
                   </button>
                 </div>

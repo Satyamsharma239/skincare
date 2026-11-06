@@ -15,7 +15,9 @@ export const AdminSettings = () => {
     shippingFee: settings.shippingFee || 79,
     announcementText: settings.announcementText || "",
     supportHours: settings.supportHours || "",
-    businessEmail: settings.businessEmail || ""
+    businessEmail: settings.businessEmail || "",
+    gstin: settings.gstin || "29AABCU9603R1ZM",
+    adminPin: settings.adminPin || "1234"
   });
 
   const handleSave = (e) => {
@@ -227,6 +229,35 @@ export const AdminSettings = () => {
                     onChange={(e) => setFormData({ ...formData, announcementText: e.target.value })}
                     style={{ width: "100%", padding: "0.6rem 0.8rem", borderRadius: "var(--radius-sm)", border: "1px solid var(--border-medium)" }}
                   />
+                </div>
+
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.75rem" }}>
+                  <div>
+                    <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 600, marginBottom: "0.3rem" }}>
+                      Registered GSTIN (for Invoices)
+                    </label>
+                    <input
+                      type="text"
+                      value={formData.gstin}
+                      onChange={(e) => setFormData({ ...formData, gstin: e.target.value })}
+                      placeholder="e.g. 29AABCU9603R1ZM"
+                      style={{ width: "100%", padding: "0.6rem 0.8rem", borderRadius: "var(--radius-sm)", border: "1px solid var(--border-medium)" }}
+                    />
+                  </div>
+
+                  <div>
+                    <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 600, marginBottom: "0.3rem" }}>
+                      Admin Security PIN
+                    </label>
+                    <input
+                      type="text"
+                      maxLength={8}
+                      value={formData.adminPin}
+                      onChange={(e) => setFormData({ ...formData, adminPin: e.target.value })}
+                      placeholder="Default: 1234"
+                      style={{ width: "100%", padding: "0.6rem 0.8rem", borderRadius: "var(--radius-sm)", border: "1px solid var(--border-medium)" }}
+                    />
+                  </div>
                 </div>
 
                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.75rem" }}>

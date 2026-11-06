@@ -468,6 +468,39 @@ export const StoreProvider = ({ children }) => {
     showToast(`Order status updated to "${newStatus}"`);
   };
 
+  const updateOrder = (orderId, updatedFields) => {
+    setOrders((prev) =>
+      prev.map((o) => (o.id === orderId ? { ...o, ...updatedFields } : o))
+    );
+    fetch(`${API_BASE}/api/orders/${orderId}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(updatedFields)
+    }).catch(() => {});
+    showToast(`Order #${orderId} updated successfully`);
+  };
+
+  const createManualOrder = (orderData) => {
+    const orderId = orderData.id || `LUM-${Math.floor(10000 + Math.random() * 90000)}`;
+    const newOrder = {
+      ...orderData,
+      id: orderId,
+      createdAt: orderData.createdAt || new Date().toISOString(),
+      status: orderData.status || "Confirmed",
+      awbTrackingNumber: orderData.awbTrackingNumber || `AWB-${Math.floor(10000000 + Math.random() * 90000000)}`,
+      courier: orderData.courier || "BlueDart Express Air",
+      estimatedDays: orderData.estimatedDays || "2 - 3 Business Days"
+    };
+    setOrders((prev) => [newOrder, ...prev]);
+    fetch(`${API_BASE}/api/orders`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(newOrder)
+    }).catch(() => {});
+    showToast(`Manual Order #${orderId} created!`);
+    return newOrder;
+  };
+
   const deleteOrder = (orderId) => {
     setOrders((prev) => prev.filter((o) => o.id !== orderId));
     fetch(`${API_BASE}/api/orders/${orderId}`, { method: "DELETE" }).catch(() => {});
@@ -713,6 +746,8 @@ export const StoreProvider = ({ children }) => {
         orders,
         createWhatsAppOrder,
         updateOrderStatus,
+        updateOrder,
+        createManualOrder,
         deleteOrder,
         quickWhatsAppBuy,
         generateWhatsAppMessage,

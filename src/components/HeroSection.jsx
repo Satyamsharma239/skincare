@@ -1,6 +1,6 @@
 import React from "react";
 import { useStore } from "../context/StoreContext";
-import { ArrowRight, Star, ShieldCheck, CheckCircle2, MessageSquareText, Truck } from "lucide-react";
+import { ArrowRight, Star, ShieldCheck, CheckCircle2, MessageSquareText, Truck, Tag } from "lucide-react";
 
 export const HeroSection = () => {
   const { settings, openExpressCheckout, products } = useStore();
@@ -137,13 +137,14 @@ export const HeroSection = () => {
                 borderRadius: "8px",
                 display: "inline-flex",
                 alignItems: "center",
-                gap: "0.5rem",
+                gap: "0.45rem",
                 fontSize: "0.78rem",
                 fontWeight: 600,
                 marginBottom: "1.5rem",
                 width: "fit-content"
               }}>
-                <span>⚡ Launch Voucher:</span>
+                <Tag size={13} color="#92400E" />
+                <span>Launch Voucher:</span>
                 <span style={{ backgroundColor: "#92400E", color: "#FFFFFF", padding: "0.15rem 0.45rem", borderRadius: "4px", fontSize: "0.74rem", fontWeight: 700 }}>
                   FIRST15
                 </span>

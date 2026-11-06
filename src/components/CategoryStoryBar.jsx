@@ -1,12 +1,14 @@
 import React from "react";
 import { useStore } from "../context/StoreContext";
+import { ArrowRight, Sparkles } from "lucide-react";
 
-const CATEGORY_STORIES = [
+const CATEGORY_ITEMS = [
   {
     id: "serums",
-    name: "Active Serums",
+    name: "Face Serums",
     categoryFilter: "Serums",
     tag: "Target Actives",
+    countText: "6 Formulations",
     image: "/serum-dropper.jpg",
     isBestseller: true
   },
@@ -15,6 +17,7 @@ const CATEGORY_STORIES = [
     name: "Barrier Creams",
     categoryFilter: "Moisturizers",
     tag: "5 Ceramides",
+    countText: "5 Formulations",
     image: "/cream-swirl.jpg",
     isBestseller: true
   },
@@ -22,15 +25,17 @@ const CATEGORY_STORIES = [
     id: "cleansers",
     name: "Gentle Cleansers",
     categoryFilter: "Cleansers",
-    tag: "Soap-Free",
+    tag: "Soap-Free Lipids",
+    countText: "3 Formulations",
     image: "https://images.unsplash.com/photo-1556228722-d0b5be7490bf?auto=format&fit=crop&w=400&q=80",
     isBestseller: false
   },
   {
     id: "sunscreens",
-    name: "SPF 50+ Shields",
+    name: "SPF 50+ Sunscreens",
     categoryFilter: "Sunscreens",
-    tag: "Zero Cast",
+    tag: "Zero White Cast",
+    countText: "4 Formulations",
     image: "https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?auto=format&fit=crop&w=400&q=80",
     isBestseller: true
   },
@@ -38,16 +43,18 @@ const CATEGORY_STORIES = [
     id: "bundles",
     name: "Value Combos",
     categoryFilter: "Bundles",
-    tag: "Save 30%",
+    tag: "Save up to 33%",
+    countText: "4 Rituals",
     image: "https://images.unsplash.com/photo-1571781926291-c477ebfd024b?auto=format&fit=crop&w=400&q=80",
     isBestseller: true
   },
   {
     id: "all",
-    name: "Shop All",
+    name: "All Formulations",
     categoryFilter: "All Products",
-    tag: "Full Vault",
-    image: "/lumera-hero.jpg",
+    tag: "Complete Vault",
+    countText: "24 Products",
+    image: "/lab-science.jpg",
     isBestseller: false
   }
 ];
@@ -65,117 +72,178 @@ export const CategoryStoryBar = () => {
   };
 
   return (
-    <div
+    <section 
       style={{
         backgroundColor: "#FFFFFF",
         borderBottom: "1px solid var(--border-light)",
-        padding: "1.5rem 0 1.25rem 0"
+        padding: "2rem 0 2.25rem 0"
       }}
+      className="category-showcase-section"
     >
       <div className="container">
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "flex-start",
-            gap: "1.75rem",
-            overflowX: "auto",
-            scrollbarWidth: "none",
-            padding: "0.25rem 0.5rem"
-          }}
-          className="story-bar-scroll"
-        >
-          {CATEGORY_STORIES.map((cat) => {
+        {/* Section Header */}
+        <div style={{
+          display: "flex",
+          alignItems: "flex-end",
+          justifyContent: "space-between",
+          flexWrap: "wrap",
+          gap: "0.75rem",
+          marginBottom: "1.35rem"
+        }}>
+          <div>
+            <div style={{
+              fontSize: "0.74rem",
+              fontWeight: 700,
+              letterSpacing: "0.08em",
+              textTransform: "uppercase",
+              color: "#C2410C",
+              fontFamily: "var(--font-sans)",
+              marginBottom: "0.25rem",
+              display: "flex",
+              alignItems: "center",
+              gap: "0.35rem"
+            }}>
+              <Sparkles size={13} color="#C2410C" />
+              <span>Targeted Clinical Regimens</span>
+            </div>
+            <h3 style={{
+              fontSize: "clamp(1.25rem, 2.2vw, 1.6rem)",
+              fontWeight: 800,
+              fontFamily: "var(--font-display)",
+              margin: 0,
+              color: "var(--text-primary)",
+              letterSpacing: "-0.02em"
+            }}>
+              Shop by Formulation Category
+            </h3>
+          </div>
+
+          <button
+            onClick={() => handleSelect("All Products")}
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "0.35rem",
+              fontSize: "0.82rem",
+              fontWeight: 700,
+              color: "var(--text-primary)",
+              cursor: "pointer",
+              padding: "0.35rem 0.75rem",
+              borderRadius: "999px",
+              backgroundColor: "#F4F4F5",
+              border: "1px solid #E4E4E7",
+              transition: "all 0.15s ease"
+            }}
+            className="view-all-categories-btn"
+          >
+            <span>View Full Vault ({products?.length || 24})</span>
+            <ArrowRight size={13} />
+          </button>
+        </div>
+
+        {/* 6-Column Full-Width Distributed Category Grid */}
+        <div className="category-showcase-grid">
+          {CATEGORY_ITEMS.map((cat) => {
             const isSelected = selectedCategoryFilter === cat.categoryFilter;
+            const actualCount = cat.id === "all" 
+              ? products?.length || 24 
+              : products?.filter((p) => p.category === cat.categoryFilter)?.length || cat.countText;
+
             return (
               <button
                 key={cat.id}
                 onClick={() => handleSelect(cat.categoryFilter)}
+                className={`category-showcase-card ${isSelected ? "active" : ""}`}
                 style={{
                   display: "flex",
                   flexDirection: "column",
                   alignItems: "center",
-                  gap: "0.5rem",
+                  textAlign: "center",
+                  padding: "1.25rem 0.75rem",
+                  borderRadius: "16px",
+                  backgroundColor: isSelected ? "#FAF8F5" : "#FFFFFF",
+                  border: isSelected ? "2px solid #18181B" : "1.5px solid #E8E4DC",
+                  boxShadow: isSelected ? "0 8px 24px rgba(24, 24, 27, 0.1)" : "0 2px 8px rgba(0, 0, 0, 0.03)",
                   cursor: "pointer",
-                  border: "none",
-                  background: "none",
-                  flexShrink: 0,
-                  transition: "transform 0.2s ease"
+                  transition: "all 0.2s cubic-bezier(0.16, 1, 0.3, 1)",
+                  position: "relative",
+                  width: "100%"
                 }}
-                className="story-item"
               >
-                {/* Visual Ring & Circle Image */}
+                {/* Circular Visual with Subtle Elevation */}
                 <div
                   style={{
-                    width: "72px",
-                    height: "72px",
+                    width: "74px",
+                    height: "74px",
                     borderRadius: "50%",
                     padding: "3px",
-                    background: isSelected 
-                      ? "#18181B" 
-                      : cat.isBestseller 
-                        ? "linear-gradient(135deg, #F59E0B 0%, #C2410C 100%)" 
-                        : "var(--border-light)",
-                    boxShadow: isSelected ? "0 4px 14px rgba(24, 24, 27, 0.25)" : "0 2px 6px rgba(0,0,0,0.04)",
-                    transition: "all 0.2s ease"
+                    backgroundColor: "#FFFFFF",
+                    boxShadow: "0 4px 12px rgba(0, 0, 0, 0.06)",
+                    border: isSelected ? "2px solid #18181B" : "1px solid #E4E4E7",
+                    marginBottom: "0.85rem",
+                    overflow: "hidden",
+                    flexShrink: 0
                   }}
-                  className="story-ring"
+                  className="cat-card-avatar"
                 >
                   <img
                     src={cat.image}
                     alt={cat.name}
                     onError={(e) => {
                       e.currentTarget.onerror = null;
-                      e.currentTarget.src = "/serum-dropper.jpg";
+                      e.currentTarget.src = "/cream-swirl.jpg";
                     }}
                     style={{
                       width: "100%",
                       height: "100%",
                       borderRadius: "50%",
                       objectFit: "cover",
-                      backgroundColor: "#F3F1EC"
+                      display: "block"
                     }}
                   />
                 </div>
 
-                {/* Name & Micro-tag */}
-                <div style={{ textAlign: "center" }}>
-                  <div
-                    style={{
-                      fontSize: "0.82rem",
-                      fontWeight: isSelected ? 700 : 600,
-                      color: isSelected ? "var(--text-primary)" : "var(--text-secondary)",
-                      fontFamily: "var(--font-display)",
-                      whiteSpace: "nowrap"
-                    }}
-                  >
-                    {cat.id === "all" ? `${cat.name} (${products.length})` : cat.name}
-                  </div>
-                  <div
-                    style={{
-                      fontSize: "0.68rem",
-                      fontWeight: 600,
-                      color: cat.isBestseller ? "var(--accent-clay)" : "var(--text-muted)",
-                      fontFamily: "var(--font-sans)"
-                    }}
-                  >
-                    {cat.tag}
-                  </div>
+                {/* Category Name */}
+                <div style={{
+                  fontSize: "0.92rem",
+                  fontWeight: 700,
+                  fontFamily: "var(--font-display)",
+                  color: "var(--text-primary)",
+                  marginBottom: "0.2rem",
+                  lineHeight: 1.2
+                }}>
+                  {cat.name}
+                </div>
+
+                {/* Micro Benefit Tag */}
+                <div style={{
+                  fontSize: "0.72rem",
+                  fontWeight: 600,
+                  color: cat.isBestseller ? "#C2410C" : "var(--text-muted)",
+                  fontFamily: "var(--font-sans)",
+                  marginBottom: "0.6rem"
+                }}>
+                  {cat.tag}
+                </div>
+
+                {/* Count Badge */}
+                <div style={{
+                  marginTop: "auto",
+                  fontSize: "0.68rem",
+                  fontWeight: 700,
+                  color: isSelected ? "#FFFFFF" : "#52525B",
+                  backgroundColor: isSelected ? "#18181B" : "#F4F4F5",
+                  padding: "0.22rem 0.65rem",
+                  borderRadius: "999px",
+                  border: isSelected ? "none" : "1px solid #E4E4E7"
+                }}>
+                  {typeof actualCount === "number" ? `${actualCount} Products` : actualCount}
                 </div>
               </button>
             );
           })}
         </div>
       </div>
-
-      <style>{`
-        .story-item:hover {
-          transform: translateY(-2px);
-        }
-        .story-item:hover .story-ring {
-          box-shadow: 0 6px 16px rgba(17, 24, 39, 0.15);
-        }
-      `}</style>
-    </div>
+    </section>
   );
 };

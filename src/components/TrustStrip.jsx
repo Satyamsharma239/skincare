@@ -28,11 +28,12 @@ export const TrustStrip = () => {
   return (
     <div
       style={{
-        backgroundColor: "#FFFFFF",
-        borderTop: "1px solid var(--border-light)",
-        borderBottom: "1px solid var(--border-light)",
-        padding: "1.25rem 0"
+        backgroundColor: "#FAF8F5",
+        borderTop: "1px solid #E8E4DC",
+        borderBottom: "1px solid #E8E4DC",
+        padding: "1.15rem 0"
       }}
+      className="trust-strip-ribbon"
     >
       <div className="container">
         <div
@@ -50,16 +51,17 @@ export const TrustStrip = () => {
                 display: "flex",
                 alignItems: "center",
                 gap: "0.85rem",
-                padding: "0.25rem 0"
+                padding: "0.2rem 0"
               }}
             >
               <div
                 style={{
-                  width: "38px",
-                  height: "38px",
+                  width: "40px",
+                  height: "40px",
                   borderRadius: "50%",
-                  backgroundColor: "#F4F4F5",
+                  backgroundColor: "#FFFFFF",
                   border: "1px solid #E4E4E7",
+                  boxShadow: "0 2px 6px rgba(0,0,0,0.03)",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
@@ -72,8 +74,8 @@ export const TrustStrip = () => {
                 <div
                   style={{
                     fontSize: "0.86rem",
-                    fontWeight: 600,
-                    color: "var(--text-primary)",
+                    fontWeight: 700,
+                    color: "#18181B",
                     fontFamily: "var(--font-sans)"
                   }}
                 >
@@ -82,8 +84,9 @@ export const TrustStrip = () => {
                 <div
                   style={{
                     fontSize: "0.74rem",
-                    color: "var(--text-muted)",
-                    fontFamily: "var(--font-sans)"
+                    color: "#71717A",
+                    fontFamily: "var(--font-sans)",
+                    fontWeight: 500
                   }}
                 >
                   {tp.subtitle}

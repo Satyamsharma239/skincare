@@ -71,13 +71,13 @@ export const Storefront = () => {
       {/* 1. High-Impact D2C Hero Section */}
       <HeroSection />
 
-      {/* Visual Category Story Shortcuts (Plum + Vilvah Signature) */}
-      <CategoryStoryBar />
-
-      {/* Trust & Assurance Banner */}
+      {/* Trust & Assurance Ribbon (Travertine / Warm Linen) */}
       <TrustStrip />
 
-      {/* 2. Concern Filter Bar */}
+      {/* 2. Full-Width Distributed Category Showcase */}
+      <CategoryStoryBar />
+
+      {/* 3. Skin Concern Precision Filter Bar */}
       <SkinConcernsBar />
 
       {/* 3. Primary Catalog Section - Product Cards Immediately Accessible */}

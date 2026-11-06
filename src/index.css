@@ -379,37 +379,39 @@ input, textarea, select {
   }
 }
 
-/* Story Bar Active Ring */
-.story-avatar-wrap {
-  position: relative;
-  width: 76px;
-  height: 76px;
-  border-radius: 50%;
-  padding: 3px;
-  background: #E4E4E7;
-  transition: all 0.2s ease;
-  flex-shrink: 0;
-}
-
-.story-avatar-wrap.active {
-  background: linear-gradient(135deg, #C2410C 0%, #F59E0B 100%);
-  box-shadow: 0 0 0 2px #FFFFFF, 0 4px 12px rgba(194, 65, 12, 0.25);
-}
-
-.story-avatar-inner {
+/* Full-Width Luxury Category Showcase Grid */
+.category-showcase-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1.15rem;
   width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  overflow: hidden;
-  background-color: #F4F4F5;
-  border: 2px solid #FFFFFF;
+}
+
+.category-showcase-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(24, 24, 27, 0.08);
+  border-color: #A1A1AA !important;
+}
+
+.category-showcase-card:hover .cat-card-avatar {
+  transform: scale(1.04);
+}
+
+.cat-card-avatar {
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (max-width: 1024px) {
+  .category-showcase-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
 }
 
 @media (max-width: 640px) {
-  .story-avatar-wrap {
-    width: 64px;
-    height: 64px;
-    padding: 2.5px;
+  .category-showcase-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
   }
 }
 

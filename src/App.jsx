@@ -65,7 +65,21 @@ class ErrorBoundary extends Component {
             boxShadow: "0 20px 40px rgba(0,0,0,0.06)",
             border: "1px solid #E4E4E7"
           }}>
-            <span style={{ fontSize: "2rem", display: "block", marginBottom: "0.75rem" }}>🌿</span>
+            <div style={{
+              width: "48px",
+              height: "48px",
+              borderRadius: "12px",
+              backgroundColor: "#18181B",
+              color: "#FFFFFF",
+              fontSize: "1.4rem",
+              fontWeight: 900,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              margin: "0 auto 1rem auto"
+            }}>
+              L
+            </div>
             <h2 style={{ fontSize: "1.5rem", fontWeight: 800, margin: "0 0 0.5rem 0", color: "#18181B" }}>
               LUMÈRA Clinical Skincare
             </h2>
@@ -162,7 +176,21 @@ const AppContent = () => {
         <Suspense fallback={
           <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", backgroundColor: "#141715", color: "#FAF8F5" }}>
             <div style={{ textAlign: "center" }}>
-              <div style={{ fontSize: "2rem", marginBottom: "0.5rem" }}>🌿</div>
+              <div style={{
+                width: "40px",
+                height: "40px",
+                borderRadius: "10px",
+                backgroundColor: "#27272A",
+                color: "#FFFFFF",
+                fontSize: "1.2rem",
+                fontWeight: 900,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                margin: "0 auto 0.75rem auto"
+              }}>
+                L
+              </div>
               <div style={{ fontWeight: 700 }}>Loading Laboratory Portal...</div>
             </div>
           </div>

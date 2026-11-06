@@ -12,7 +12,10 @@ import {
   ShieldCheck,
   Flame,
   ChevronRight,
-  Truck
+  Truck,
+  Droplets,
+  Sun,
+  Tag
 } from "lucide-react";
 
 export const Navbar = () => {
@@ -108,7 +111,8 @@ export const Navbar = () => {
         }}
       >
         <div style={{ margin: "0 auto", textAlign: "center", fontWeight: 500, display: "flex", alignItems: "center", gap: "0.5rem" }}>
-          <span>⚡ FREE Express Courier on orders ₹499+ • Doorstep Cash on Delivery (COD) • 0% Artificial Fragrance</span>
+          <Truck size={13} color="#FAF8F5" />
+          <span>FREE Express Courier on orders ₹499+ • Doorstep Cash on Delivery (COD) • 0% Artificial Fragrance</span>
         </div>
         <div className="announcement-right" style={{ display: "flex", alignItems: "center", gap: "0.75rem", fontSize: "0.74rem" }}>
           <button 
@@ -438,26 +442,6 @@ export const Navbar = () => {
                 SAVE 30%
               </span>
             </a>
-
-            <button 
-              onClick={() => setIsTrackOrderOpen(true)}
-              className="cat-nav-link"
-              style={{ color: "#2563EB", fontWeight: 700, display: "inline-flex", alignItems: "center", gap: "0.35rem" }}
-            >
-              <Truck size={14} color="#2563EB" />
-              <span>Track Order</span>
-            </button>
-
-            <button 
-              onClick={() => {
-                const el = document.getElementById("faq-section");
-                if (el) el.scrollIntoView({ behavior: "smooth" });
-              }}
-              className="cat-nav-link"
-              style={{ marginLeft: "auto", color: "var(--text-muted)" }}
-            >
-              Help & FAQ
-            </button>
           </nav>
         </div>
       </div>
@@ -507,35 +491,50 @@ export const Navbar = () => {
                   onClick={() => handleNavClick("All Products", "All Concerns")}
                   style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0.65rem 0", fontSize: "0.92rem", fontWeight: 600, borderBottom: "1px solid #F4F4F5" }}
                 >
-                  <span>✨ Shop All Products</span>
+                  <span style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                    <Sparkles size={16} color="#C2410C" />
+                    <span>Shop All Formulations</span>
+                  </span>
                   <ChevronRight size={16} color="var(--text-muted)" />
                 </button>
                 <button 
                   onClick={() => handleNavClick("Serums", null)}
                   style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0.65rem 0", fontSize: "0.92rem", fontWeight: 600, borderBottom: "1px solid #F4F4F5" }}
                 >
-                  <span>💧 Face Serums</span>
+                  <span style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                    <Droplets size={16} color="#18181B" />
+                    <span>Face Serums</span>
+                  </span>
                   <ChevronRight size={16} color="var(--text-muted)" />
                 </button>
                 <button 
                   onClick={() => handleNavClick("Moisturizers", null)}
                   style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0.65rem 0", fontSize: "0.92rem", fontWeight: 600, borderBottom: "1px solid #F4F4F5" }}
                 >
-                  <span>🛡️ Barrier Creams</span>
+                  <span style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                    <ShieldCheck size={16} color="#18181B" />
+                    <span>Barrier Creams</span>
+                  </span>
                   <ChevronRight size={16} color="var(--text-muted)" />
                 </button>
                 <button 
                   onClick={() => handleNavClick("Sunscreens", null)}
                   style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0.65rem 0", fontSize: "0.92rem", fontWeight: 600, borderBottom: "1px solid #F4F4F5" }}
                 >
-                  <span>☀️ SPF 50+ Sunscreen</span>
+                  <span style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                    <Sun size={16} color="#18181B" />
+                    <span>SPF 50+ Sunscreen</span>
+                  </span>
                   <ChevronRight size={16} color="var(--text-muted)" />
                 </button>
                 <button 
                   onClick={() => handleNavClick("Cleansers", null)}
                   style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0.65rem 0", fontSize: "0.92rem", fontWeight: 600, borderBottom: "1px solid #F4F4F5" }}
                 >
-                  <span>🍃 Gentle Cleansers</span>
+                  <span style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                    <Droplets size={16} color="#18181B" />
+                    <span>Gentle Cleansers</span>
+                  </span>
                   <ChevronRight size={16} color="var(--text-muted)" />
                 </button>
                 <a 
@@ -543,7 +542,10 @@ export const Navbar = () => {
                   onClick={() => setIsMobileMenuOpen(false)}
                   style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0.65rem 0", fontSize: "0.92rem", fontWeight: 700, color: "#C2410C", borderBottom: "1px solid #F4F4F5" }}
                 >
-                  <span>🎁 Bundles & Offers (SAVE 30%)</span>
+                  <span style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                    <Tag size={16} color="#C2410C" />
+                    <span>Bundles & Offers (SAVE 30%)</span>
+                  </span>
                   <ChevronRight size={16} color="#C2410C" />
                 </a>
 

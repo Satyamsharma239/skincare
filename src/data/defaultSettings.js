@@ -7,7 +7,7 @@ export const DEFAULT_SETTINGS = {
   currencyCode: "INR",
   freeShippingThreshold: 499,
   shippingFee: 79,
-  announcementText: "⚡ Complimentary Express Courier on orders above ₹499 • Same-day dispatch via BlueDart & Delhivery • Direct WhatsApp purchase & tracking",
+  announcementText: "Complimentary Express Courier on orders above ₹499 • Same-day dispatch via BlueDart & Delhivery • Direct WhatsApp purchase & tracking",
   supportHours: "Mon - Sat: 9:30 AM – 8:00 PM IST",
   businessEmail: "concierge@lumeraskincare.com",
   adminPin: "1234", // Default PIN to access /admin

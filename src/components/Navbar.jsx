@@ -401,8 +401,8 @@ export const Navbar = () => {
             </button>
 
             <button 
-              onClick={() => handleNavClick("Sunscreen", null)}
-              className={`cat-nav-link ${selectedCategoryFilter === "Sunscreen" ? "active" : ""}`}
+              onClick={() => handleNavClick("Sunscreens", null)}
+              className={`cat-nav-link ${selectedCategoryFilter === "Sunscreens" ? "active" : ""}`}
             >
               Sunscreen SPF 50+
             </button>
@@ -519,7 +519,7 @@ export const Navbar = () => {
                   <ChevronRight size={16} color="var(--text-muted)" />
                 </button>
                 <button 
-                  onClick={() => handleNavClick("Sunscreen", null)}
+                  onClick={() => handleNavClick("Sunscreens", null)}
                   style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0.65rem 0", fontSize: "0.92rem", fontWeight: 600, borderBottom: "1px solid #F4F4F5" }}
                 >
                   <span>☀️ SPF 50+ Sunscreen</span>

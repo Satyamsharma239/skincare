@@ -46,7 +46,7 @@ export const AdminPortal = () => {
     }
     const success = loginAdmin(pinInput.trim());
     if (!success) {
-      setPinError("Incorrect security PIN. Default is 1234");
+      setPinError(`Incorrect security PIN. (Default: ${settings.adminPin || "1234"})`);
     } else {
       setPinError("");
       setPinInput("");

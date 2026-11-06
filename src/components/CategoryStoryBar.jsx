@@ -29,7 +29,7 @@ const CATEGORY_STORIES = [
   {
     id: "sunscreens",
     name: "SPF 50+ Shields",
-    categoryFilter: "Sunscreen",
+    categoryFilter: "Sunscreens",
     tag: "Zero Cast",
     image: "https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?auto=format&fit=crop&w=400&q=80",
     isBestseller: true

@@ -54,7 +54,23 @@ export const ProductCard = ({ product }) => {
 
         {/* Top Badges */}
         <div style={{ position: "absolute", top: "0.65rem", left: "0.65rem", zIndex: 2, display: "flex", flexDirection: "column", gap: "0.3rem" }}>
-          {product.badge && (
+          {!product.inStock && (
+            <span style={{
+              fontFamily: "var(--font-sans)",
+              fontSize: "0.65rem",
+              fontWeight: 800,
+              backgroundColor: "#DC2626",
+              color: "#FFFFFF",
+              padding: "0.22rem 0.6rem",
+              borderRadius: "var(--radius-full)",
+              letterSpacing: "0.04em",
+              textTransform: "uppercase"
+            }}>
+              Sold Out
+            </span>
+          )}
+
+          {product.badge && product.inStock && (
             <span style={{
               fontFamily: "var(--font-sans)",
               fontSize: "0.65rem",

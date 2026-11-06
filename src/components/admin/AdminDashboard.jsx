@@ -9,7 +9,10 @@ import {
   ArrowRight, 
   ExternalLink,
   Clock,
-  CheckCircle2
+  CheckCircle2,
+  IndianRupee,
+  Layers,
+  ShoppingBag
 } from "lucide-react";
 
 export const AdminDashboard = ({ onNavigate }) => {
@@ -37,7 +40,7 @@ export const AdminDashboard = ({ onNavigate }) => {
   const handleOpenCustomerWhatsApp = (order) => {
     const cleanPhone = order.customer.phone.replace(/[^0-9]/g, "");
     const text = encodeURIComponent(
-      `Hello ${order.customer.name}! 🌿 This is from ${settings.storeName}. Regarding your skincare order #${order.id}...`
+      `Hello ${order.customer.name}! This is from ${settings.storeName}. Regarding your skincare order #${order.id}...`
     );
     window.open(`https://wa.me/${cleanPhone}?text=${text}`, "_blank");
   };
@@ -110,7 +113,7 @@ export const AdminDashboard = ({ onNavigate }) => {
       {/* 4 Metric Cards */}
       <div style={{
         display: "grid",
-        gridTemplateColumns: "repeat(4, 1fr)",
+        gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
         gap: "1.25rem",
         marginBottom: "2rem"
       }} className="stats-grid">
@@ -120,19 +123,21 @@ export const AdminDashboard = ({ onNavigate }) => {
           backgroundColor: "#fff",
           borderRadius: "var(--radius-md)",
           padding: "1.5rem",
-          boxShadow: "var(--shadow-sm)",
+          boxShadow: "0 2px 8px rgba(0,0,0,0.03)",
           border: "1px solid var(--border-light)"
         }}>
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", color: "var(--text-muted)", fontSize: "0.82rem", fontWeight: 600, textTransform: "uppercase", marginBottom: "0.5rem" }}>
-            <span>Total Order Volume</span>
-            <span style={{ fontSize: "1.1rem" }}>💰</span>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", color: "var(--text-muted)", fontSize: "0.8rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.04em", marginBottom: "0.75rem" }}>
+            <span>Total Revenue</span>
+            <div style={{ width: "32px", height: "32px", borderRadius: "8px", backgroundColor: "#FFF7ED", display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <IndianRupee size={16} color="#C2410C" />
+            </div>
           </div>
-          <div style={{ fontSize: "1.9rem", fontWeight: 700, color: "var(--accent-forest)", marginBottom: "0.25rem" }}>
+          <div style={{ fontSize: "1.85rem", fontWeight: 800, color: "var(--text-primary)", fontFamily: "var(--font-display)", marginBottom: "0.25rem" }}>
             {settings.currency}{totalRevenue.toLocaleString()}
           </div>
-          <div style={{ fontSize: "0.78rem", color: "#166534", display: "flex", alignItems: "center", gap: "0.3rem" }}>
+          <div style={{ fontSize: "0.76rem", color: "#166534", display: "flex", alignItems: "center", gap: "0.3rem", fontWeight: 600 }}>
             <TrendingUp size={13} />
-            <span>Across all WhatsApp checkouts</span>
+            <span>Across all direct checkouts</span>
           </div>
         </div>
 
@@ -141,18 +146,20 @@ export const AdminDashboard = ({ onNavigate }) => {
           backgroundColor: "#fff",
           borderRadius: "var(--radius-md)",
           padding: "1.5rem",
-          boxShadow: "var(--shadow-sm)",
+          boxShadow: "0 2px 8px rgba(0,0,0,0.03)",
           border: "1px solid var(--border-light)"
         }}>
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", color: "var(--text-muted)", fontSize: "0.82rem", fontWeight: 600, textTransform: "uppercase", marginBottom: "0.5rem" }}>
-            <span>WhatsApp Inquiries</span>
-            <span style={{ fontSize: "1.1rem" }}>📦</span>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", color: "var(--text-muted)", fontSize: "0.8rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.04em", marginBottom: "0.75rem" }}>
+            <span>Total Orders</span>
+            <div style={{ width: "32px", height: "32px", borderRadius: "8px", backgroundColor: "#EFF6FF", display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <Package size={16} color="#2563EB" />
+            </div>
           </div>
-          <div style={{ fontSize: "1.9rem", fontWeight: 700, color: "var(--text-primary)", marginBottom: "0.25rem" }}>
+          <div style={{ fontSize: "1.85rem", fontWeight: 800, color: "var(--text-primary)", fontFamily: "var(--font-display)", marginBottom: "0.25rem" }}>
             {totalOrdersCount}
           </div>
-          <div style={{ fontSize: "0.78rem", color: newInquiriesCount > 0 ? "#DC2626" : "var(--text-muted)", fontWeight: 600 }}>
-            {newInquiriesCount} requiring action / reply
+          <div style={{ fontSize: "0.76rem", color: newInquiriesCount > 0 ? "#DC2626" : "var(--text-muted)", fontWeight: 600 }}>
+            {newInquiriesCount} requiring action
           </div>
         </div>
 
@@ -161,18 +168,20 @@ export const AdminDashboard = ({ onNavigate }) => {
           backgroundColor: "#fff",
           borderRadius: "var(--radius-md)",
           padding: "1.5rem",
-          boxShadow: "var(--shadow-sm)",
+          boxShadow: "0 2px 8px rgba(0,0,0,0.03)",
           border: "1px solid var(--border-light)"
         }}>
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", color: "var(--text-muted)", fontSize: "0.82rem", fontWeight: 600, textTransform: "uppercase", marginBottom: "0.5rem" }}>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", color: "var(--text-muted)", fontSize: "0.8rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.04em", marginBottom: "0.75rem" }}>
             <span>Avg Order Value (AOV)</span>
-            <span style={{ fontSize: "1.1rem" }}>📊</span>
+            <div style={{ width: "32px", height: "32px", borderRadius: "8px", backgroundColor: "#F0FDF4", display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <TrendingUp size={16} color="#16A34A" />
+            </div>
           </div>
-          <div style={{ fontSize: "1.9rem", fontWeight: 700, color: "var(--text-primary)", marginBottom: "0.25rem" }}>
+          <div style={{ fontSize: "1.85rem", fontWeight: 800, color: "var(--text-primary)", fontFamily: "var(--font-display)", marginBottom: "0.25rem" }}>
             {settings.currency}{averageOrderValue}
           </div>
-          <div style={{ fontSize: "0.78rem", color: "var(--text-muted)" }}>
-            Boosted by 3-step routine bundles
+          <div style={{ fontSize: "0.76rem", color: "var(--text-muted)", fontWeight: 500 }}>
+            Boosted by value bundles
           </div>
         </div>
 
@@ -181,18 +190,20 @@ export const AdminDashboard = ({ onNavigate }) => {
           backgroundColor: "#fff",
           borderRadius: "var(--radius-md)",
           padding: "1.5rem",
-          boxShadow: "var(--shadow-sm)",
+          boxShadow: "0 2px 8px rgba(0,0,0,0.03)",
           border: "1px solid var(--border-light)"
         }}>
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", color: "var(--text-muted)", fontSize: "0.82rem", fontWeight: 600, textTransform: "uppercase", marginBottom: "0.5rem" }}>
-            <span>Live Catalog</span>
-            <span style={{ fontSize: "1.1rem" }}>🧴</span>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", color: "var(--text-muted)", fontSize: "0.8rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.04em", marginBottom: "0.75rem" }}>
+            <span>Active Formulations</span>
+            <div style={{ width: "32px", height: "32px", borderRadius: "8px", backgroundColor: "#F5F3FF", display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <Layers size={16} color="#7C3AED" />
+            </div>
           </div>
-          <div style={{ fontSize: "1.9rem", fontWeight: 700, color: "var(--text-primary)", marginBottom: "0.25rem" }}>
+          <div style={{ fontSize: "1.85rem", fontWeight: 800, color: "var(--text-primary)", fontFamily: "var(--font-display)", marginBottom: "0.25rem" }}>
             {products.length}
           </div>
-          <div style={{ fontSize: "0.78rem", color: outOfStockProducts.length > 0 ? "#DC2626" : "#166534", fontWeight: 600 }}>
-            {outOfStockProducts.length > 0 ? `⚠️ ${outOfStockProducts.length} Out of stock` : "● All formulations available"}
+          <div style={{ fontSize: "0.76rem", color: outOfStockProducts.length > 0 ? "#DC2626" : "#166534", fontWeight: 600 }}>
+            {outOfStockProducts.length > 0 ? `${outOfStockProducts.length} Out of stock` : "● All formulations available"}
           </div>
         </div>
 

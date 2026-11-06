@@ -286,21 +286,31 @@ export const Navbar = () => {
           {/* Right: Actions (WhatsApp Direct Order, Wishlist, Bag) */}
           <div style={{ display: "flex", alignItems: "center", gap: "0.85rem" }}>
             
-            {/* Direct WhatsApp Order Button */}
+            {/* Direct WhatsApp Order Button - Luxury Obsidian Black */}
             <button
               onClick={handleOpenWhatsAppChat}
               className="btn btn-whatsapp header-whatsapp-btn"
               style={{
-                padding: "0.55rem 1.1rem",
+                padding: "0.55rem 1.15rem",
                 fontSize: "0.82rem",
                 fontWeight: 700,
                 borderRadius: "var(--radius-full)",
                 display: "inline-flex",
                 alignItems: "center",
-                gap: "0.45rem"
+                gap: "0.5rem",
+                backgroundColor: "#18181B",
+                color: "#FFFFFF",
+                border: "1.5px solid #18181B"
               }}
               title="Order directly on WhatsApp"
             >
+              <div style={{
+                width: "7px",
+                height: "7px",
+                borderRadius: "50%",
+                backgroundColor: "#22C55E",
+                boxShadow: "0 0 6px #22C55E"
+              }} />
               <MessageSquareText size={15} />
               <span>Order on WhatsApp</span>
             </button>

@@ -221,7 +221,7 @@ export const ProductCard = ({ product }) => {
           )}
         </div>
 
-        {/* Dual Actions: Quick Buy (WhatsApp) & Bag */}
+        {/* Dual Actions: Quick Buy (WhatsApp) & Bag - Luxury Monochrome Duo */}
         <div className="card-actions" style={{ display: "grid", gridTemplateColumns: "1.2fr 1fr", gap: "0.45rem" }}>
           <button
             onClick={handleBuyNow}
@@ -233,6 +233,9 @@ export const ProductCard = ({ product }) => {
               padding: "0.55rem 0.4rem",
               fontWeight: 700,
               borderRadius: "var(--radius-full)",
+              backgroundColor: "#18181B",
+              color: "#FFFFFF",
+              border: "1.5px solid #18181B",
               opacity: product.inStock ? 1 : 0.5,
               cursor: product.inStock ? "pointer" : "not-allowed"
             }}

@@ -14,20 +14,21 @@ import {
   PackageCheck
 } from "lucide-react";
 
-// Curated high quality aesthetic skincare image presets for store owners
+// Cohesive LUMÈRA studio packshots for Admin Product Editor
 const PRESET_IMAGES = [
-  { label: "Amber Dropper Serum", url: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=800&q=80" },
-  { label: "Frosted Cream Jar", url: "https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=800&q=80" },
-  { label: "Minimalist Pump Bottle", url: "https://images.unsplash.com/photo-1556228722-d0b5be7490bf?auto=format&fit=crop&w=800&q=80" },
-  { label: "Matte Sunscreen Tube", url: "https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?auto=format&fit=crop&w=800&q=80" },
-  { label: "Apothecary Retinol Dropper", url: "https://images.unsplash.com/photo-1608248597359-5613531b4028?auto=format&fit=crop&w=800&q=80" },
-  { label: "Glass Essence Bottle", url: "https://images.unsplash.com/photo-1616683693504-3ea7e9ad6fec?auto=format&fit=crop&w=800&q=80" },
-  { label: "Eye Contour Vial", url: "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=800&q=80" },
-  { label: "Melting Cleansing Balm", url: "https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=800&q=80" },
-  { label: "Peptide Lip Cushion", url: "https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=800&q=80" },
-  { label: "Clarifying AHA Toner", url: "https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?auto=format&fit=crop&w=800&q=80" },
-  { label: "Hydrating Body Elixir", url: "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=800&q=80" },
-  { label: "The Vault 5-Piece Box", url: "https://images.unsplash.com/photo-1571781926291-c477ebfd024b?auto=format&fit=crop&w=800&q=80" }
+  { label: "Clear Frosted Dropper Serum", url: "/products/serum-niacinamide.jpg" },
+  { label: "Dark UV Amber Dropper Serum", url: "/products/serum-dark-uv.jpg" },
+  { label: "Retinol Airless Pump Bottle", url: "/products/retinol-airless.jpg" },
+  { label: "5-Ceramide Barrier Cream Jar", url: "/products/cream-ceramide-jar.jpg" },
+  { label: "Oil-Free Water Gel Jar", url: "/products/water-gel-jar.jpg" },
+  { label: "Minimalist Cleanser Pump Bottle", url: "/products/cleanser-pump.jpg" },
+  { label: "Matte SPF 50+ Sunscreen Tube", url: "/products/sunscreen-tube.jpg" },
+  { label: "Frosted Toner / Essence Bottle", url: "/products/toner-essence.jpg" },
+  { label: "Caffeine Eye Contour Tube", url: "/products/eye-peptide-tube.jpg" },
+  { label: "Peptide Glaze Lip Tube", url: "/products/lip-glaze-tube.jpg" },
+  { label: "Salicylic Clay Detox Masque", url: "/products/clay-mask-jar.jpg" },
+  { label: "Ceramide Body Elixir Pump", url: "/products/body-lotion-pump.jpg" },
+  { label: "3-Step Routine Kit Box Set", url: "/products/routine-box-set.jpg" }
 ];
 
 export const AdminProducts = () => {
@@ -47,12 +48,13 @@ export const AdminProducts = () => {
     skinConcerns: ["Acne & Blemishes"],
     skinTypes: ["All Skin Types"],
     price: 599,
-    originalPrice: 799,
-    volume: "30 ml / 1.0 fl oz",
-    badge: "New Launch",
+    originalPrice: "",
+    volume: "30 ml",
+    badge: "",
     inStock: true,
     stockCount: 50,
     image: PRESET_IMAGES[0].url,
+    hoverImage: "/serum-dropper.jpg",
     keyActives: "",
     texture: "Lightweight fluid",
     amPm: "AM & PM",
@@ -94,20 +96,20 @@ export const AdminProducts = () => {
     e.preventDefault();
     if (!formData.name.trim()) return;
 
+    const cleanPrice = Number(formData.price) || 0;
+    const cleanOrig = Number(formData.originalPrice) || 0;
+    const payload = {
+      ...formData,
+      price: cleanPrice,
+      originalPrice: cleanOrig > cleanPrice ? cleanOrig : undefined,
+      stockCount: Number(formData.stockCount || 0),
+      hoverImage: formData.hoverImage || (formData.category === "Moisturizers" ? "/cream-swirl.jpg" : "/serum-dropper.jpg")
+    };
+
     if (editingProductId) {
-      updateProduct(editingProductId, {
-        ...formData,
-        price: Number(formData.price),
-        originalPrice: Number(formData.originalPrice || formData.price),
-        stockCount: Number(formData.stockCount || 0)
-      });
+      updateProduct(editingProductId, payload);
     } else {
-      addProduct({
-        ...formData,
-        price: Number(formData.price),
-        originalPrice: Number(formData.originalPrice || formData.price),
-        stockCount: Number(formData.stockCount || 0)
-      });
+      addProduct(payload);
     }
 
     setIsModalOpen(false);
@@ -130,39 +132,12 @@ export const AdminProducts = () => {
 
   return (
     <div>
-      {/* Top Header & Add Button */}
+      {/* Filter, Search & Add Toolbar */}
       <div style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-        flexWrap: "wrap",
-        gap: "1rem",
-        marginBottom: "1.5rem"
-      }}>
-        <div>
-          <h2 style={{ fontSize: "1.6rem", fontWeight: 600, margin: 0 }}>
-            Formulations & Skincare Catalog
-          </h2>
-          <p style={{ fontSize: "0.85rem", color: "var(--text-secondary)", margin: "2px 0 0 0" }}>
-            Add, edit, or adjust clinical formulations, active percentages, and prices live in the store.
-          </p>
-        </div>
-
-        <button
-          onClick={handleOpenAdd}
-          className="btn btn-primary"
-        >
-          <Plus size={18} />
-          <span>Add New Formulation</span>
-        </button>
-      </div>
-
-      {/* Filter and Search Bar */}
-      <div style={{
-        backgroundColor: "#fff",
+        backgroundColor: "#FFFFFF",
         borderRadius: "var(--radius-md)",
-        padding: "1rem",
-        marginBottom: "1.5rem",
+        padding: "1rem 1.25rem",
+        marginBottom: "1.25rem",
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
@@ -172,30 +147,31 @@ export const AdminProducts = () => {
       }}>
         {/* Search Input */}
         <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", border: "1px solid var(--border-medium)", borderRadius: "var(--radius-sm)", padding: "0.45rem 0.75rem", width: "260px" }}>
-          <Search size={16} color="var(--text-muted)" />
+          <Search size={15} color="var(--text-muted)" />
           <input
             type="text"
-            placeholder="Search formulation name..."
+            placeholder="Search SKU or active..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            style={{ border: "none", outline: "none", fontSize: "0.85rem", width: "100%" }}
+            style={{ border: "none", outline: "none", fontSize: "0.84rem", width: "100%" }}
           />
         </div>
 
-        {/* Category Pills */}
-        <div style={{ display: "flex", alignItems: "center", gap: "0.4rem", overflowX: "auto" }}>
+        {/* Category Filter Pills */}
+        <div style={{ display: "flex", alignItems: "center", gap: "0.35rem", overflowX: "auto", scrollbarWidth: "none" }}>
           {["All", ...CATEGORIES.filter((c) => c !== "All Products")].map((cat) => (
             <button
               key={cat}
               onClick={() => setCategoryFilter(cat)}
               style={{
-                padding: "0.4rem 0.8rem",
+                padding: "0.38rem 0.75rem",
                 borderRadius: "var(--radius-sm)",
-                fontSize: "0.8rem",
-                fontWeight: categoryFilter === cat ? 700 : 500,
-                backgroundColor: categoryFilter === cat ? "var(--accent-forest)" : "var(--bg-secondary)",
-                color: categoryFilter === cat ? "#fff" : "var(--text-primary)",
+                fontSize: "0.78rem",
+                fontWeight: categoryFilter === cat ? 600 : 500,
+                backgroundColor: categoryFilter === cat ? "#141414" : "var(--bg-subtle)",
+                color: categoryFilter === cat ? "#FFFFFF" : "var(--text-main)",
                 border: "none",
+                whiteSpace: "nowrap",
                 cursor: "pointer"
               }}
             >
@@ -203,25 +179,27 @@ export const AdminProducts = () => {
             </button>
           ))}
         </div>
+
+        <button
+          onClick={handleOpenAdd}
+          className="btn btn-primary btn-sm"
+        >
+          <Plus size={15} />
+          <span>Add Formulation</span>
+        </button>
       </div>
 
       {/* Products Table */}
-      <div style={{
-        backgroundColor: "#fff",
-        borderRadius: "var(--radius-md)",
-        border: "1px solid var(--border-light)",
-        boxShadow: "var(--shadow-sm)",
-        overflowX: "auto"
-      }}>
-        <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.85rem", textAlign: "left" }}>
+      <div className="admin-table-container">
+        <table className="admin-table">
           <thead>
-            <tr style={{ borderBottom: "1px solid var(--border-light)", color: "var(--text-muted)", backgroundColor: "var(--bg-primary)" }}>
-              <th style={{ padding: "0.85rem 1rem" }}>Product</th>
-              <th style={{ padding: "0.85rem 1rem" }}>Category & Step</th>
-              <th style={{ padding: "0.85rem 1rem" }}>Key Actives</th>
-              <th style={{ padding: "0.85rem 1rem" }}>Price</th>
-              <th style={{ padding: "0.85rem 1rem" }}>Stock Status</th>
-              <th style={{ padding: "0.85rem 1rem", textAlign: "right" }}>Actions</th>
+            <tr>
+              <th>Product</th>
+              <th>Category & Step</th>
+              <th>Key Actives</th>
+              <th>Price</th>
+              <th>Stock Status</th>
+              <th style={{ textAlign: "right" }}>Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -230,12 +208,12 @@ export const AdminProducts = () => {
                 {/* Media & Title */}
                 <td style={{ padding: "0.85rem 1rem" }}>
                   <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
-                    <img
-                      src={prod.image}
-                      alt={prod.name}
-                      onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = "/serum-dropper.jpg"; }}
-                      style={{ width: "46px", height: "46px", borderRadius: "var(--radius-sm)", objectFit: "cover", backgroundColor: "#F4F4F5" }}
-                    />
+                      <img
+                        src={prod.image}
+                        alt={prod.name}
+                        onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = "/products/serum-niacinamide.jpg"; }}
+                        style={{ width: "46px", height: "46px", borderRadius: "var(--radius-sm)", objectFit: "cover", backgroundColor: "#F5F4F0" }}
+                      />
                     <div>
                       <div style={{ fontWeight: 600, color: "var(--text-primary)", maxWidth: "200px" }}>
                         {prod.name}
@@ -257,7 +235,7 @@ export const AdminProducts = () => {
 
                 {/* Key Actives */}
                 <td style={{ padding: "0.85rem 1rem", maxWidth: "220px" }}>
-                  <span style={{ color: "var(--accent-sage)", fontWeight: 600, fontSize: "0.82rem" }}>
+                  <span style={{ color: "var(--accent-pine)", fontWeight: 600, fontSize: "0.82rem" }}>
                     {prod.keyActives}
                   </span>
                 </td>

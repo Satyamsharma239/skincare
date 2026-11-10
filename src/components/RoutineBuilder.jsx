@@ -91,49 +91,57 @@ export const RoutineBuilder = () => {
     <section 
       id="routine-builder-section"
       style={{ 
-        backgroundColor: "#FAFAF9", 
-        padding: "5.5rem 0", 
+        backgroundColor: "var(--bg-subtle)", 
+        padding: "4.5rem 0", 
+        borderTop: "1px solid var(--border-light)",
         borderBottom: "1px solid var(--border-light)" 
       }}
     >
       <div className="container">
         
-        {/* Section Header */}
-        <div style={{ textAlign: "center", maxWidth: "640px", margin: "0 auto 3.5rem auto" }}>
-          <div style={{ 
-            fontFamily: "var(--font-sans)",
-            fontSize: "0.76rem",
-            fontWeight: 700,
-            letterSpacing: "0.08em",
-            textTransform: "uppercase",
-            color: "#C2410C",
-            marginBottom: "0.5rem"
-          }}>
-            Clinical Regimen Protocol
+        {/* Horizontal Editorial Section Bar */}
+        <div style={{
+          display: "flex",
+          alignItems: "flex-end",
+          justifyContent: "space-between",
+          flexWrap: "wrap",
+          gap: "1.25rem",
+          marginBottom: "2.25rem"
+        }}>
+          <div style={{ maxWidth: "580px" }}>
+            <div style={{ 
+              fontSize: "0.72rem",
+              fontWeight: 700,
+              letterSpacing: "0.12em",
+              textTransform: "uppercase",
+              color: "var(--accent-pine)",
+              marginBottom: "0.4rem"
+            }}>
+              Layering Protocol
+            </div>
+
+            <h2 style={{ 
+              fontSize: "clamp(1.65rem, 2.8vw, 2.2rem)", 
+              fontWeight: 700, 
+              marginBottom: "0.45rem",
+              color: "var(--text-main)"
+            }}>
+              AM / PM Clinical Routine
+            </h2>
+
+            <p style={{ color: "var(--text-muted)", fontSize: "0.92rem", lineHeight: 1.55, margin: 0 }}>
+              Structured by molecular weight and pH compatibility so active ingredients absorb cleanly without barrier stress.
+            </p>
           </div>
 
-          <h2 style={{ 
-            fontFamily: "var(--font-display)",
-            fontSize: "clamp(2rem, 3.5vw, 2.7rem)", 
-            fontWeight: 800, 
-            marginBottom: "0.75rem",
-            color: "var(--text-primary)"
-          }}>
-            Build Your Daily Routine
-          </h2>
-
-          <p style={{ color: "var(--text-secondary)", fontSize: "0.96rem", lineHeight: 1.6, fontFamily: "var(--font-sans)" }}>
-            Active molecules layered by molecular weight. Follow our morning and evening steps to protect your skin barrier and boost glow with instant bundle savings.
-          </p>
-
-          {/* Minimalist AM/PM Toggle */}
+          {/* AM / PM Segmented Control */}
           <div style={{
             display: "inline-flex",
-            backgroundColor: "#fff",
+            backgroundColor: "#FFFFFF",
             padding: "0.25rem",
-            borderRadius: "var(--radius-full)",
-            border: "1px solid var(--border-medium)",
-            marginTop: "1.75rem"
+            borderRadius: "var(--radius-sm)",
+            border: "1px solid var(--border-light)",
+            flexShrink: 0
           }}>
             <button
               onClick={() => setActiveRegimen("am")}
@@ -141,17 +149,17 @@ export const RoutineBuilder = () => {
                 display: "inline-flex",
                 alignItems: "center",
                 gap: "0.45rem",
-                padding: "0.55rem 1.35rem",
-                borderRadius: "var(--radius-full)",
-                fontSize: "0.84rem",
-                fontWeight: activeRegimen === "am" ? 500 : 400,
-                backgroundColor: activeRegimen === "am" ? "var(--accent-pine)" : "transparent",
-                color: activeRegimen === "am" ? "#fff" : "var(--text-secondary)",
+                padding: "0.52rem 1.15rem",
+                borderRadius: "var(--radius-xs)",
+                fontSize: "0.82rem",
+                fontWeight: activeRegimen === "am" ? 600 : 500,
+                backgroundColor: activeRegimen === "am" ? "var(--text-main)" : "transparent",
+                color: activeRegimen === "am" ? "#FFFFFF" : "var(--text-muted)",
                 transition: "all var(--transition-fast)"
               }}
             >
-              <Sun size={15} />
-              <span>Morning Ritual</span>
+              <Sun size={14} />
+              <span>Morning (AM)</span>
             </button>
 
             <button
@@ -160,17 +168,17 @@ export const RoutineBuilder = () => {
                 display: "inline-flex",
                 alignItems: "center",
                 gap: "0.45rem",
-                padding: "0.55rem 1.35rem",
-                borderRadius: "var(--radius-full)",
-                fontSize: "0.84rem",
-                fontWeight: activeRegimen === "pm" ? 500 : 400,
-                backgroundColor: activeRegimen === "pm" ? "var(--accent-pine)" : "transparent",
-                color: activeRegimen === "pm" ? "#fff" : "var(--text-secondary)",
+                padding: "0.52rem 1.15rem",
+                borderRadius: "var(--radius-xs)",
+                fontSize: "0.82rem",
+                fontWeight: activeRegimen === "pm" ? 600 : 500,
+                backgroundColor: activeRegimen === "pm" ? "var(--text-main)" : "transparent",
+                color: activeRegimen === "pm" ? "#FFFFFF" : "var(--text-muted)",
                 transition: "all var(--transition-fast)"
               }}
             >
-              <Moon size={15} />
-              <span>Evening Ritual</span>
+              <Moon size={14} />
+              <span>Evening (PM)</span>
             </button>
           </div>
         </div>
@@ -215,8 +223,8 @@ export const RoutineBuilder = () => {
                 {/* Product Thumbnail */}
                 <div 
                   style={{ 
-                    height: "170px", 
-                    backgroundColor: "#F4F0E8", 
+                    aspectRatio: "1 / 1", 
+                    backgroundColor: "var(--bg-studio)", 
                     borderRadius: "var(--radius-xs)", 
                     overflow: "hidden", 
                     marginBottom: "1rem",
@@ -229,19 +237,19 @@ export const RoutineBuilder = () => {
                     alt={product.name} 
                     onError={(e) => {
                       e.currentTarget.onerror = null;
-                      e.currentTarget.src = "/serum-dropper.jpg";
+                      e.currentTarget.src = "/products/serum-niacinamide.jpg";
                     }}
                     style={{ width: "100%", height: "100%", objectFit: "cover" }} 
                   />
                 </div>
 
-                <div style={{ fontSize: "0.74rem", color: "var(--accent-clay)", fontFamily: "var(--font-sans)", fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: "0.2rem" }}>
+                <div style={{ fontSize: "0.7rem", color: "var(--accent-pine)", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: "0.25rem" }}>
                   {title}
                 </div>
 
                 <h4 
                   onClick={() => setSelectedProductForModal(product)}
-                  style={{ fontSize: "0.95rem", fontWeight: 500, marginBottom: "0.35rem", lineHeight: 1.35, cursor: "pointer" }}
+                  style={{ fontSize: "0.94rem", fontWeight: 600, marginBottom: "0.3rem", lineHeight: 1.35, cursor: "pointer", color: "var(--text-main)" }}
                 >
                   {product.name}
                 </h4>
@@ -273,12 +281,12 @@ export const RoutineBuilder = () => {
           })}
         </div>
 
-        {/* Minimalist Bundle Bar */}
+        {/* Dark Architectural Bundle Bar */}
         <div style={{
-          backgroundColor: "#1D241E",
-          color: "#FAF8F5",
-          borderRadius: "var(--radius-md)",
-          padding: "2rem 2.5rem",
+          backgroundColor: "var(--bg-dark)",
+          color: "#FFFFFF",
+          borderRadius: "var(--radius-sm)",
+          padding: "2rem 2.25rem",
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
@@ -286,49 +294,46 @@ export const RoutineBuilder = () => {
           gap: "1.5rem"
         }}>
           <div>
-            <div style={{ fontFamily: "var(--font-sans)", fontSize: "0.72rem", color: "var(--accent-clay-soft)", fontWeight: 600, letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: "0.3rem" }}>
-              Complete Regimen Bundle
+            <div style={{ fontSize: "0.7rem", color: "#A7F3D0", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: "0.35rem" }}>
+              Complete {activeRegimen === "am" ? "AM" : "PM"} Protocol
             </div>
-            <h3 style={{ fontSize: "1.45rem", color: "#FAF8F5", fontWeight: 700, fontFamily: "var(--font-display)", letterSpacing: "-0.02em", margin: "2px 0 0.4rem 0" }}>
+            <h3 style={{ fontSize: "1.4rem", color: "#FFFFFF", fontWeight: 700, letterSpacing: "-0.02em", margin: "0 0 0.35rem 0" }}>
               Order All {currentProducts.length} Steps Together
             </h3>
-            <p style={{ color: "#B8B5AE", fontSize: "0.86rem", maxWidth: "520px" }}>
-              Formulations calibrated to amplify each other's cellular efficacy. Includes free express delivery across India.
+            <p style={{ color: "#A1A1AA", fontSize: "0.86rem", maxWidth: "520px", margin: 0 }}>
+              Calibrated active concentrations designed to layer without irritation. Eligible for Free Express Shipping.
             </p>
           </div>
 
-          <div style={{ display: "flex", alignItems: "center", gap: "1.25rem", flexWrap: "wrap" }}>
-            <div style={{ textAlign: "right" }}>
-              <div style={{ fontSize: "1.6rem", fontWeight: 600, color: "#FAF8F5" }}>
-                {settings.currency}{bundleTotal}
+          <div style={{ display: "flex", alignItems: "center", gap: "1rem", flexWrap: "wrap" }}>
+            <div style={{ textAlign: "right", marginRight: "0.5rem" }}>
+              <div className="tabular-nums" style={{ fontSize: "1.55rem", fontWeight: 700, color: "#FFFFFF" }}>
+                {settings.currency}{bundleTotal.toLocaleString()}
               </div>
-              {bundleDiscount > 0 && (
-                <div style={{ fontSize: "0.75rem", color: "var(--accent-clay-soft)" }}>
-                  Save {settings.currency}{bundleDiscount} compared to singles
-                </div>
-              )}
+              <div className="tabular-nums" style={{ fontSize: "0.75rem", color: "#A7F3D0" }}>
+                {bundleDiscount > 0 ? `Save ${settings.currency}${bundleDiscount} vs MRP` : "Includes Free Express Delivery"}
+              </div>
             </div>
 
             <button
               onClick={handleAddAllToBag}
               className="btn btn-secondary"
-              style={{ backgroundColor: "#FAF8F5", color: "#181917", border: "none" }}
+              style={{ backgroundColor: "transparent", color: "#FFFFFF", border: "1px solid #3F3F46" }}
             >
               <ShoppingBag size={15} />
-              <span>Add All to Cart</span>
+              <span>Add All to Bag</span>
             </button>
 
             <button
               onClick={handleOrderRoutineWhatsApp}
               className="btn btn-primary"
               style={{
-                backgroundColor: "#FAF8F5",
-                color: "#181917",
-                border: "1px solid #FAF8F5",
-                padding: "0.8rem 1.4rem"
+                backgroundColor: "#FFFFFF",
+                color: "#141414",
+                borderColor: "#FFFFFF"
               }}
             >
-              <span>Buy Regimen Now</span>
+              <span>Order Regimen (COD)</span>
               <ArrowRight size={15} />
             </button>
           </div>

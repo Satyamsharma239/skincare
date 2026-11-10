@@ -1,6 +1,6 @@
 import React from "react";
 import { useStore } from "../context/StoreContext";
-import { MessageSquareText } from "lucide-react";
+import { MessageCircle } from "lucide-react";
 
 export const FloatingWhatsApp = () => {
   const { settings, currentRoute } = useStore();
@@ -10,20 +10,29 @@ export const FloatingWhatsApp = () => {
   const handleOpenWhatsApp = () => {
     const cleanPhone = settings.whatsappNumber.replace(/[^0-9]/g, "");
     const text = encodeURIComponent(
-      `Hello ${settings.storeName}! 🌿 I am browsing your skincare dispensary and would like assistance with selecting a formulation or placing my order.`
+      `Hello ${settings.storeName}! I am browsing your skincare collection and would like advice on selecting a formulation or placing my order.`
     );
     window.open(`https://wa.me/${cleanPhone}?text=${text}`, "_blank");
   };
 
   return (
-    <button
-      onClick={handleOpenWhatsApp}
-      className="floating-whatsapp-btn"
-      aria-label="Direct WhatsApp Concierge"
-      title="Instant WhatsApp assistance and order guidance"
+    <aside 
+      className="floating-whatsapp-container"
+      aria-label="Customer Support WhatsApp Hotline"
     >
-      <MessageSquareText size={18} />
-      <span style={{ letterSpacing: "0.01em", fontWeight: 700 }}>WhatsApp Us</span>
-    </button>
+      <button
+        onClick={handleOpenWhatsApp}
+        className="floating-whatsapp-pill"
+        title={`Chat with ${settings.storeName} on WhatsApp: ${settings.whatsappDisplayNumber}`}
+      >
+        <div className="wa-icon-circle">
+          <MessageCircle size={20} color="#FFFFFF" strokeWidth={2.2} />
+        </div>
+        <div className="wa-label-group">
+          <span className="wa-help-text">Order on WhatsApp</span>
+          <span className="wa-phone-text">{settings.whatsappDisplayNumber}</span>
+        </div>
+      </button>
+    </aside>
   );
 };

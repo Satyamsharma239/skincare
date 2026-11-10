@@ -65,7 +65,7 @@ export const TrackOrderModal = () => {
     const cleanPhone = settings.whatsappNumber.replace(/[^0-9]/g, "");
     const orderRef = matchedOrder ? `Order #${matchedOrder.id}` : "my recent skincare order";
     const text = encodeURIComponent(
-      `Hello ${settings.storeName}! 🌿 I am inquiring about the shipping status of ${orderRef}. Could you please assist with live tracking?`
+      `Hello ${settings.storeName}! I am inquiring about the shipping status of ${orderRef}. Could you please assist with live tracking?`
     );
     window.open(`https://wa.me/${cleanPhone}?text=${text}`, "_blank");
   };

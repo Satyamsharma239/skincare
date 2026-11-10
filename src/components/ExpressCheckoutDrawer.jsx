@@ -208,28 +208,27 @@ export const ExpressCheckoutDrawer = () => {
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          backgroundColor: "var(--bg-primary)"
+          backgroundColor: "#FFFFFF"
         }}>
           <div>
             <div style={{
               fontSize: "0.68rem",
-              fontWeight: 600,
-              letterSpacing: "0.16em",
+              fontWeight: 800,
+              letterSpacing: "0.12em",
               textTransform: "uppercase",
-              color: "var(--accent-clay)",
-              marginBottom: "2px"
+              color: "var(--accent-emerald)",
+              marginBottom: "3px"
             }}>
               Express Direct Dispatch
             </div>
             <h3 style={{
-              fontFamily: "var(--font-display)",
-              fontSize: "1.35rem",
-              fontWeight: 700,
-              color: "var(--text-primary)",
+              fontSize: "1.3rem",
+              fontWeight: 800,
+              color: "var(--text-main)",
               letterSpacing: "-0.02em",
               margin: 0
             }}>
-              Confirm Order & Delivery
+              Confirm Delivery & Order
             </h3>
           </div>
 
@@ -239,7 +238,8 @@ export const ExpressCheckoutDrawer = () => {
               width: "34px",
               height: "34px",
               borderRadius: "50%",
-              backgroundColor: "var(--bg-secondary)",
+              backgroundColor: "var(--bg-subtle)",
+              border: "1px solid var(--border-light)",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
@@ -248,7 +248,7 @@ export const ExpressCheckoutDrawer = () => {
             }}
             title="Close checkout"
           >
-            <X size={17} color="var(--text-primary)" />
+            <X size={17} color="var(--text-main)" />
           </button>
         </div>
 
@@ -393,10 +393,10 @@ export const ExpressCheckoutDrawer = () => {
             
             <div style={{
               fontSize: "0.72rem",
-              fontWeight: 600,
-              letterSpacing: "0.14em",
+              fontWeight: 800,
+              letterSpacing: "0.1em",
               textTransform: "uppercase",
-              color: "var(--accent-clay)"
+              color: "var(--accent-emerald)"
             }}>
               Delivery & Recipient Information
             </div>
@@ -680,7 +680,7 @@ export const ExpressCheckoutDrawer = () => {
             </div>
 
             {computedDiscount > 0 && (
-              <div style={{ display: "flex", justifyContent: "space-between", color: "var(--accent-clay)", fontWeight: 500 }}>
+              <div style={{ display: "flex", justifyContent: "space-between", color: "var(--accent-emerald)", fontWeight: 600 }}>
                 <span>Privilege Discount ({appliedCoupon?.code})</span>
                 <span>-{settings.currency}{computedDiscount}</span>
               </div>
@@ -713,21 +713,8 @@ export const ExpressCheckoutDrawer = () => {
           <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
             <button
               type="submit"
-              className="btn btn-whatsapp"
-              style={{
-                width: "100%",
-                padding: "1rem",
-                fontSize: "0.96rem",
-                fontWeight: 700,
-                backgroundColor: "#18181B",
-                color: "#FFFFFF",
-                borderRadius: "999px",
-                border: "1.5px solid #18181B",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                gap: "0.55rem"
-              }}
+              className="btn btn-primary btn-lg"
+              style={{ width: "100%" }}
             >
               <MessageSquareText size={18} />
               <span>Confirm & Place Order ({settings.currency}{computedTotal})</span>
@@ -747,7 +734,7 @@ export const ExpressCheckoutDrawer = () => {
                 padding: "0.3rem"
               }}
             >
-              Prefer to order in WhatsApp directly? Click to share address in chat ➔
+              Prefer to order in WhatsApp directly? Share address in chat
             </button>
 
             <div style={{
@@ -760,8 +747,8 @@ export const ExpressCheckoutDrawer = () => {
               gap: "0.4rem",
               marginTop: "0.2rem"
             }}>
-              <ShieldCheck size={14} color="#166534" />
-              <span>Verified direct laboratory dispatch • COD & UPI Accepted</span>
+              <ShieldCheck size={14} color="var(--accent-pine)" />
+              <span>Direct cleanroom dispatch · Cash on Delivery & UPI accepted</span>
             </div>
           </div>
 

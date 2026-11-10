@@ -1,22 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useStore } from "../context/StoreContext";
 import { PincodeChecker } from "./PincodeChecker";
 import { 
   X, 
   Star, 
-  MessageCircle, 
   ShoppingBag, 
   Heart, 
-  Clock, 
-  Sparkles, 
-  ShieldCheck, 
   Check, 
   ChevronDown, 
   ChevronUp,
-  Droplets,
-  Activity,
-  Layers,
-  ArrowRight
+  ArrowRight,
+  ShieldCheck
 } from "lucide-react";
 
 export const ProductDetailModal = () => {
@@ -26,18 +20,25 @@ export const ProductDetailModal = () => {
     setSelectedProductForModal,
     addToCart,
     openExpressCheckout,
-    quickWhatsAppBuy,
     wishlist,
-    toggleWishlist,
-    showToast
+    toggleWishlist
   } = useStore();
 
   const [quantity, setQuantity] = useState(1);
   const [showFullIngredients, setShowFullIngredients] = useState(false);
+  const [activeMediaIndex, setActiveMediaIndex] = useState(0);
+
+  useEffect(() => {
+    setActiveMediaIndex(0);
+    setQuantity(1);
+    setShowFullIngredients(false);
+  }, [selectedProductForModal?.id]);
 
   if (!selectedProductForModal) return null;
   const product = selectedProductForModal;
   const isFavorite = wishlist.includes(product.id);
+  const mediaGallery = [product.image, product.hoverImage].filter(Boolean);
+  const activeImgSrc = mediaGallery[activeMediaIndex] || product.image;
 
   const discountPercent = product.originalPrice
     ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
@@ -59,7 +60,7 @@ export const ProductDetailModal = () => {
             right: "1rem",
             zIndex: 10,
             backgroundColor: "rgba(255, 255, 255, 0.95)",
-            border: "1px solid var(--border-medium)",
+            border: "1px solid var(--border-subtle)",
             borderRadius: "50%",
             width: "36px",
             height: "36px",
@@ -77,24 +78,66 @@ export const ProductDetailModal = () => {
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1.25fr" }} className="modal-grid">
           
           {/* Left Media Column */}
-          <div style={{ backgroundColor: "#F6F4F0", position: "relative", minHeight: "380px" }}>
+          <div style={{ backgroundColor: "var(--bg-studio)", position: "relative", minHeight: "380px", display: "flex", flexDirection: "column" }}>
             <img 
-              src={product.image} 
+              src={activeImgSrc} 
               alt={product.name} 
               onError={(e) => {
                 e.currentTarget.onerror = null;
                 e.currentTarget.src = product.category === "Moisturizers" 
-                  ? "/cream-swirl.jpg" 
+                  ? "/products/cream-ceramide-jar.jpg" 
                   : product.category === "Bundles" 
-                    ? "/lumera-hero.jpg" 
-                    : "/serum-dropper.jpg";
+                    ? "/products/routine-box-set.jpg" 
+                    : "/products/serum-niacinamide.jpg";
               }}
-              style={{ width: "100%", height: "100%", objectFit: "cover" }}
+              style={{ width: "100%", height: "100%", objectFit: "cover", flexGrow: 1 }}
             />
-            <div style={{ position: "absolute", top: "1rem", left: "1rem", display: "flex", flexDirection: "column", gap: "0.5rem" }}>
-              {product.badge && <span className="badge badge-terracotta">{product.badge}</span>}
-              {product.phLevel && <span className="badge badge-forest">{product.phLevel}</span>}
+            <div style={{ position: "absolute", top: "1rem", left: "1rem", display: "flex", flexDirection: "column", gap: "0.45rem" }}>
+              {product.badge && (
+                <span className="lumera-card-badge">
+                  {product.badge}
+                </span>
+              )}
+              {product.phLevel && (
+                <span style={{ backgroundColor: "var(--accent-pine)", color: "#fff", fontSize: "0.64rem", fontWeight: 700, padding: "0.22rem 0.55rem", borderRadius: "var(--radius-xs)" }}>
+                  {product.phLevel}
+                </span>
+              )}
             </div>
+
+            {mediaGallery.length > 1 && (
+              <div style={{
+                position: "absolute",
+                bottom: "1rem",
+                left: "1rem",
+                display: "flex",
+                gap: "0.45rem",
+                backgroundColor: "rgba(255,255,255,0.92)",
+                padding: "0.3rem",
+                borderRadius: "var(--radius-sm)",
+                border: "1px solid var(--border-light)"
+              }}>
+                {mediaGallery.map((imgUrl, idx) => (
+                  <button
+                    key={idx}
+                    type="button"
+                    onClick={() => setActiveMediaIndex(idx)}
+                    style={{
+                      width: "44px",
+                      height: "44px",
+                      padding: 0,
+                      borderRadius: "2px",
+                      overflow: "hidden",
+                      border: activeMediaIndex === idx ? "2px solid var(--text-main)" : "1px solid var(--border-light)",
+                      cursor: "pointer"
+                    }}
+                    title={idx === 0 ? "Product Bottle" : "Formula Texture"}
+                  >
+                    <img src={imgUrl} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* Right Product Details Column */}
@@ -102,27 +145,27 @@ export const ProductDetailModal = () => {
             
             {/* Category & Rating */}
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "0.5rem" }}>
-              <span style={{ fontSize: "0.78rem", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--text-muted)" }}>
+              <span style={{ fontSize: "0.72rem", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--accent-pine)" }}>
                 {product.category} • {product.volume}
               </span>
-              <div style={{ display: "flex", alignItems: "center", gap: "0.3rem", color: "var(--accent-forest)", fontWeight: 600, fontSize: "0.85rem" }}>
-                <Star size={14} fill="#EAB308" color="#EAB308" />
+              <div style={{ display: "flex", alignItems: "center", gap: "0.3rem", color: "var(--text-primary)", fontWeight: 700, fontSize: "0.85rem" }}>
+                <Star size={14} fill="var(--accent-amber)" color="var(--accent-amber)" />
                 <span>{product.rating}</span>
                 <span style={{ color: "var(--text-muted)", fontWeight: 400 }}>({product.reviewsCount} reviews)</span>
               </div>
             </div>
 
             {/* Title & Subtitle */}
-            <h2 style={{ fontSize: "1.45rem", lineHeight: 1.25, marginBottom: "0.35rem", fontWeight: 600 }}>
+            <h2 style={{ fontSize: "1.45rem", lineHeight: 1.25, marginBottom: "0.35rem", fontWeight: 700, color: "var(--text-primary)" }}>
               {product.name}
             </h2>
-            <p style={{ fontSize: "0.88rem", color: "var(--accent-terracotta)", fontWeight: 600, marginBottom: "1rem" }}>
+            <p style={{ fontSize: "0.88rem", color: "var(--text-secondary)", fontWeight: 500, marginBottom: "1.25rem" }}>
               {product.subtitle}
             </p>
 
             {/* Pricing Section */}
-            <div style={{ display: "flex", alignItems: "baseline", gap: "0.75rem", padding: "0.75rem 0", borderBottom: "1px solid var(--border-light)", borderTop: "1px solid var(--border-light)", marginBottom: "1.25rem" }}>
-              <span style={{ fontSize: "1.6rem", fontWeight: 700, color: "var(--text-primary)" }}>
+            <div style={{ display: "flex", alignItems: "baseline", gap: "0.75rem", padding: "0.85rem 0", borderBottom: "1px solid var(--border-subtle)", borderTop: "1px solid var(--border-subtle)", marginBottom: "1.25rem" }}>
+              <span style={{ fontSize: "1.6rem", fontWeight: 800, color: "var(--text-primary)" }}>
                 {settings.currency}{product.price}
               </span>
               {product.originalPrice && (
@@ -130,22 +173,22 @@ export const ProductDetailModal = () => {
                   <span style={{ fontSize: "1rem", textDecoration: "line-through", color: "var(--text-muted)" }}>
                     {settings.currency}{product.originalPrice}
                   </span>
-                  <span style={{ fontSize: "0.78rem", fontWeight: 700, color: "var(--accent-terracotta)", backgroundColor: "var(--accent-terracotta-light)", padding: "0.2rem 0.5rem", borderRadius: "var(--radius-sm)" }}>
-                    {discountPercent}% OFF
+                  <span style={{ fontSize: "0.82rem", fontWeight: 700, color: "var(--accent-terracotta)" }}>
+                    (Save {discountPercent}%)
                   </span>
                 </>
               )}
-              <span style={{ marginLeft: "auto", fontSize: "0.78rem", color: product.inStock ? "#166534" : "#991B1B", fontWeight: 700 }}>
+              <span style={{ marginLeft: "auto", fontSize: "0.78rem", color: product.inStock ? "var(--accent-forest)" : "#DC2626", fontWeight: 700 }}>
                 {product.inStock ? `● In Stock (${product.stockCount} units)` : "● Out of Stock"}
               </span>
             </div>
 
             {/* Active Ingredients Box */}
-            <div style={{ backgroundColor: "var(--accent-forest-light)", padding: "0.85rem 1rem", borderRadius: "var(--radius-sm)", marginBottom: "1.25rem" }}>
-              <div style={{ fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em", color: "var(--accent-forest)", marginBottom: "0.25rem" }}>
-                Targeted Bio-Compatible Actives
+            <div style={{ backgroundColor: "var(--bg-secondary)", border: "1px solid var(--border-subtle)", padding: "0.85rem 1rem", borderRadius: "var(--radius-sm)", marginBottom: "1.25rem" }}>
+              <div style={{ fontSize: "0.72rem", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.06em", color: "var(--accent-terracotta)", marginBottom: "0.25rem" }}>
+                Target Formulation
               </div>
-              <div style={{ fontSize: "0.9rem", fontWeight: 600, color: "var(--accent-forest)" }}>
+              <div style={{ fontSize: "0.9rem", fontWeight: 700, color: "var(--text-primary)" }}>
                 {product.keyActives}
               </div>
             </div>
@@ -155,41 +198,41 @@ export const ProductDetailModal = () => {
               {product.description}
             </p>
 
-            {/* Clinical Technical Specs: pH, Texture, Scent */}
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.75rem", padding: "0.85rem", backgroundColor: "var(--bg-secondary)", borderRadius: "var(--radius-sm)", marginBottom: "1.25rem" }}>
+            {/* Technical Specs: pH, Texture, Scent */}
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.75rem", padding: "0.85rem", backgroundColor: "var(--bg-secondary)", border: "1px solid var(--border-subtle)", borderRadius: "var(--radius-sm)", marginBottom: "1.25rem" }}>
               <div>
-                <span style={{ fontSize: "0.72rem", color: "var(--text-muted)", textTransform: "uppercase", fontWeight: 700 }}>
+                <span style={{ fontSize: "0.7rem", color: "var(--text-muted)", textTransform: "uppercase", fontWeight: 700 }}>
                   Physiological pH
                 </span>
-                <div style={{ fontWeight: 600, fontSize: "0.85rem", marginTop: "2px" }}>
+                <div style={{ fontWeight: 700, fontSize: "0.85rem", marginTop: "2px", color: "var(--text-primary)" }}>
                   {product.phLevel || "pH 5.5 (Acid-Mantle Calibrated)"}
                 </div>
               </div>
 
               <div>
-                <span style={{ fontSize: "0.72rem", color: "var(--text-muted)", textTransform: "uppercase", fontWeight: 700 }}>
+                <span style={{ fontSize: "0.7rem", color: "var(--text-muted)", textTransform: "uppercase", fontWeight: 700 }}>
                   Sensory Aroma
                 </span>
-                <div style={{ fontWeight: 600, fontSize: "0.85rem", marginTop: "2px" }}>
+                <div style={{ fontWeight: 700, fontSize: "0.85rem", marginTop: "2px", color: "var(--text-primary)" }}>
                   {product.scent || "100% Unfragranced"}
                 </div>
               </div>
 
               <div>
-                <span style={{ fontSize: "0.72rem", color: "var(--text-muted)", textTransform: "uppercase", fontWeight: 700 }}>
-                  Routine Sequence
+                <span style={{ fontSize: "0.7rem", color: "var(--text-muted)", textTransform: "uppercase", fontWeight: 700 }}>
+                  Routine Step
                 </span>
-                <div style={{ fontWeight: 600, fontSize: "0.85rem", marginTop: "2px" }}>
+                <div style={{ fontWeight: 700, fontSize: "0.85rem", marginTop: "2px", color: "var(--text-primary)" }}>
                   {product.amPm} ({product.step})
                 </div>
               </div>
 
               <div>
-                <span style={{ fontSize: "0.72rem", color: "var(--text-muted)", textTransform: "uppercase", fontWeight: 700 }}>
+                <span style={{ fontSize: "0.7rem", color: "var(--text-muted)", textTransform: "uppercase", fontWeight: 700 }}>
                   Texture
                 </span>
-                <div style={{ fontWeight: 600, fontSize: "0.85rem", marginTop: "2px" }}>
-                  {product.texture?.split("•")[0] || "Lightweight"}
+                <div style={{ fontWeight: 700, fontSize: "0.85rem", marginTop: "2px", color: "var(--text-primary)" }}>
+                  {product.texture?.split("•")[0] || "Lightweight Fast-Absorb"}
                 </div>
               </div>
             </div>
@@ -199,9 +242,9 @@ export const ProductDetailModal = () => {
 
             {/* Clinical Study Highlights */}
             {product.clinicalHighlights && product.clinicalHighlights.length > 0 && (
-              <div style={{ marginBottom: "1.25rem" }}>
-                <h5 style={{ fontSize: "0.78rem", textTransform: "uppercase", letterSpacing: "0.06em", color: "var(--text-muted)", marginBottom: "0.5rem" }}>
-                  Clinical Evaluation Data
+              <div style={{ margin: "1.25rem 0" }}>
+                <h5 style={{ fontSize: "0.76rem", textTransform: "uppercase", letterSpacing: "0.06em", color: "var(--text-muted)", marginBottom: "0.5rem" }}>
+                  Clinical Evaluation Highlights
                 </h5>
                 <div style={{ display: "flex", flexDirection: "column", gap: "0.35rem" }}>
                   {product.clinicalHighlights.map((point, idx) => (
@@ -214,16 +257,6 @@ export const ProductDetailModal = () => {
               </div>
             )}
 
-            {/* How to use */}
-            <div style={{ marginBottom: "1.25rem" }}>
-              <h5 style={{ fontSize: "0.78rem", textTransform: "uppercase", letterSpacing: "0.06em", color: "var(--text-muted)", marginBottom: "0.3rem" }}>
-                How to Apply
-              </h5>
-              <p style={{ fontSize: "0.86rem", color: "var(--text-secondary)", lineHeight: 1.5 }}>
-                {product.howToUse}
-              </p>
-            </div>
-
             {/* Full INCI Ingredients Collapsible */}
             <div style={{ marginBottom: "1.5rem" }}>
               <button 
@@ -233,40 +266,40 @@ export const ProductDetailModal = () => {
                   alignItems: "center", 
                   justifyContent: "space-between", 
                   width: "100%",
-                  padding: "0.5rem 0",
-                  borderTop: "1px solid var(--border-light)",
-                  borderBottom: "1px solid var(--border-light)",
+                  padding: "0.65rem 0",
+                  borderTop: "1px solid var(--border-subtle)",
+                  borderBottom: "1px solid var(--border-subtle)",
                   fontSize: "0.82rem",
                   fontWeight: 600,
                   color: "var(--text-secondary)"
                 }}
               >
-                <span>Full Clean Science INCI Ingredients List</span>
+                <span>Full INCI Ingredients Disclosure</span>
                 {showFullIngredients ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
               </button>
               {showFullIngredients && (
-                <div style={{ padding: "0.75rem 0", fontSize: "0.76rem", color: "var(--text-muted)", lineHeight: 1.5 }}>
+                <div style={{ padding: "0.75rem 0", fontSize: "0.78rem", color: "var(--text-muted)", lineHeight: 1.6 }}>
                   {product.fullIngredients}
                 </div>
               )}
             </div>
 
-            {/* Quantity Stepper & WhatsApp Buy CTAs */}
-            <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+            {/* Quantity Stepper & Actions */}
+            <div style={{ display: "flex", flexDirection: "column", gap: "0.85rem" }}>
               <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
-                <div style={{ display: "flex", alignItems: "center", border: "1px solid var(--border-medium)", borderRadius: "var(--radius-sm)" }}>
+                <div style={{ display: "flex", alignItems: "center", border: "1.5px solid var(--border-light)", borderRadius: "var(--radius-full)", backgroundColor: "#FFFFFF" }}>
                   <button 
                     onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                    style={{ padding: "0.5rem 0.85rem", fontSize: "1rem", fontWeight: 600 }}
+                    style={{ padding: "0.5rem 0.95rem", fontSize: "1rem", fontWeight: 700, color: "var(--text-primary)" }}
                   >
                     -
                   </button>
-                  <span style={{ padding: "0.5rem 0.85rem", fontSize: "0.9rem", fontWeight: 600 }}>
+                  <span style={{ padding: "0.5rem 0.5rem", fontSize: "0.9rem", fontWeight: 700, minWidth: "24px", textAlign: "center" }}>
                     {quantity}
                   </span>
                   <button 
                     onClick={() => setQuantity(quantity + 1)}
-                    style={{ padding: "0.5rem 0.85rem", fontSize: "1rem", fontWeight: 600 }}
+                    style={{ padding: "0.5rem 0.95rem", fontSize: "1rem", fontWeight: 700, color: "var(--text-primary)" }}
                   >
                     +
                   </button>
@@ -275,23 +308,20 @@ export const ProductDetailModal = () => {
                 <button
                   onClick={() => addToCart(product, quantity)}
                   disabled={!product.inStock}
-                  className="btn btn-secondary"
+                  className="lumera-btn-secondary"
                   style={{ 
                     flexGrow: 1, 
-                    padding: "0.85rem 1rem",
-                    border: "1.5px solid #18181B",
-                    borderRadius: "999px",
-                    fontWeight: 700,
+                    justifyContent: "center",
                     opacity: product.inStock ? 1 : 0.6,
                     cursor: product.inStock ? "pointer" : "not-allowed"
                   }}
                 >
                   <ShoppingBag size={16} />
-                  <span>{product.inStock ? `Add to Cart (${settings.currency}${product.price * quantity})` : "Out of Stock"}</span>
+                  <span>{product.inStock ? `Add to Bag (${settings.currency}${product.price * quantity})` : "Out of Stock"}</span>
                 </button>
               </div>
 
-              {/* Direct Buy Now (Opens Express Drawer) */}
+              {/* Direct Buy Now */}
               <button
                 onClick={() => {
                   if (!product.inStock) return;
@@ -299,30 +329,22 @@ export const ProductDetailModal = () => {
                   setSelectedProductForModal(null);
                 }}
                 disabled={!product.inStock}
-                className="btn btn-whatsapp"
+                className="lumera-btn-primary"
                 style={{
                   width: "100%",
-                  padding: "0.95rem",
-                  fontSize: "0.92rem",
-                  fontWeight: 700,
-                  backgroundColor: "#18181B",
-                  color: "#FFFFFF",
-                  border: "1.5px solid #18181B",
-                  borderRadius: "999px",
-                  display: "flex",
-                  alignItems: "center",
                   justifyContent: "center",
-                  gap: "0.5rem",
+                  padding: "1rem",
+                  fontSize: "0.94rem",
                   opacity: product.inStock ? 1 : 0.6,
                   cursor: product.inStock ? "pointer" : "not-allowed"
                 }}
               >
                 <span>{product.inStock ? "Buy Now (Cash on Delivery / UPI)" : "Currently Sold Out"}</span>
-                <ArrowRight size={15} />
+                <ArrowRight size={16} />
               </button>
 
-              <div style={{ textAlign: "center", fontSize: "0.76rem", color: "var(--text-muted)", marginTop: "-0.2rem" }}>
-                ✓ Instant Guest Checkout (No Login Required) • Doorstep COD • Express Dispatch
+              <div style={{ textAlign: "center", fontSize: "0.76rem", color: "var(--text-muted)" }}>
+                ✓ 100% Guest Checkout • Doorstep COD & UPI • Dispatch within 24 Hours
               </div>
 
               <button
@@ -333,13 +355,14 @@ export const ProductDetailModal = () => {
                   justifyContent: "center", 
                   gap: "0.4rem",
                   fontSize: "0.82rem",
+                  fontWeight: 600,
                   color: isFavorite ? "var(--accent-terracotta)" : "var(--text-secondary)",
                   marginTop: "0.25rem",
                   cursor: "pointer"
                 }}
               >
-                <Heart size={15} fill={isFavorite ? "var(--accent-terracotta)" : "none"} />
-                <span>{isFavorite ? "Saved to your Skincare Favorites" : "Save to Favorites"}</span>
+                <Heart size={15} fill={isFavorite ? "var(--accent-terracotta)" : "none"} color={isFavorite ? "var(--accent-terracotta)" : "var(--text-secondary)"} />
+                <span>{isFavorite ? "Saved in your Wishlist" : "Save to Wishlist"}</span>
               </button>
             </div>
 

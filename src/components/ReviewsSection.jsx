@@ -1,157 +1,139 @@
 import React from "react";
-import { Star, CheckCircle2 } from "lucide-react";
+import { useStore } from "../context/StoreContext";
+import { Star, ArrowUpRight } from "lucide-react";
 
 export const ReviewsSection = () => {
+  const { products, setSelectedProductForModal } = useStore();
+
   const reviews = [
     {
       id: 1,
       name: "Aanya R.",
-      location: "Bengaluru (Indiranagar)",
-      skinType: "Combination • Hormonal Chin Acne",
-      product: "Radiance 10% Niacinamide + Zinc PCA",
-      comment: "I've tried so many niacinamide serums that felt either sticky like glue or broke me out. This is water-light and absorbs in 15 seconds. My chin inflammation calmed down in literally 10 days. Ordering on WhatsApp was so fast—confirmed in 5 minutes.",
-      date: "Verified WhatsApp Buyer • 12 days ago"
+      location: "Bengaluru",
+      skinType: "Combination · Hormonal Acne",
+      productId: "prod-1",
+      productName: "Niacinamide 10% + Zinc 1%",
+      comment: "Most niacinamide serums feel sticky in Bengaluru humidity. This absorbs in 15 seconds, keeps midday T-zone oil down, and visibly faded my post-acne marks in 3 weeks.",
+      verifiedLabel: "Verified Order"
     },
     {
       id: 2,
       name: "Dr. Kabir M.",
-      location: "Mumbai (Bandra West)",
-      skinType: "Aesthetic Physician • Sensitive Barrier",
-      product: "Barrier Defense 5-Ceramide Lipid Cream",
-      comment: "As a doctor, I analyze formulation lipid ratios. LUMÈRA’s 5-Ceramide cream follows the physiological 3:1:1 lipid balance without clogging pore follicles in Mumbai humidity. Zero synthetic perfume or essential oils. Excellent patient feedback.",
-      date: "Verified WhatsApp Buyer • 3 weeks ago"
+      location: "Mumbai",
+      skinType: "Sensitive · Barrier Recovery",
+      productId: "prod-2",
+      productName: "5-Ceramide Barrier Defense Cream",
+      comment: "Clean 3:1:1 lipid balance and completely unfragranced. I recommend it routinely for patients recovering from over-exfoliation or winter barrier peeling.",
+      verifiedLabel: "Verified Review"
     },
     {
       id: 3,
       name: "Sneha T.",
-      location: "New Delhi (Greater Kailash)",
-      skinType: "Warm Dusky Tone • Dark Spots",
-      product: "Invisible Fluid Sunscreen SPF 50+ PA++++",
-      comment: "Finding a high SPF sunscreen in India with genuinely ZERO white cast on dusky skin is nearly impossible. This one dries completely clear in 10 seconds and doesn’t pill under BB cream or make my T-zone greasy. Highly recommend!",
-      date: "Verified WhatsApp Buyer • 2 weeks ago"
+      location: "New Delhi",
+      skinType: "Medium-Deep Complexion",
+      productId: "prod-4",
+      productName: "Invisible Fluid Sunscreen SPF 50+",
+      comment: "Finally an SPF 50+ with genuinely zero white or gray cast on deeper Indian skin. Doesn't pill under moisturizer and didn't sting my eyes during summer commute.",
+      verifiedLabel: "Verified Order"
     },
     {
       id: 4,
       name: "Rhea V.",
-      location: "Pune (Koregaon Park)",
-      skinType: "Dry • Damaged from Chemical Peels",
-      product: "The 3-Step Clear Skin Barrier Regimen",
-      comment: "I destroyed my barrier with glycolic acid peels. The cleanser didn't sting at all, and the ceramide cream stopped the dry flaking overnight. Cash on delivery on WhatsApp made it super easy to try the full bundle.",
-      date: "Verified WhatsApp Buyer • 1 month ago"
+      location: "Pune",
+      skinType: "Oily · Blemish-Prone",
+      productId: "prod-26",
+      productName: "Oil-Free Ultra-Light Water Gel",
+      comment: "Hydrating without feeling occlusive or heavy. Paired it with the BHA cleanser on Cash on Delivery—parcel reached Pune in 48 hours intact.",
+      verifiedLabel: "Verified Order"
     }
   ];
 
+  const handleOpenReviewedProduct = (productId) => {
+    const prod = (products || []).find((p) => p.id === productId);
+    if (prod) setSelectedProductForModal(prod);
+  };
+
   return (
-    <section style={{
-      backgroundColor: "#FFFFFF",
-      padding: "5rem 0",
-      borderBottom: "1px solid var(--border-light)"
-    }}>
+    <section className="reviews-section">
       <div className="container">
         
-        {/* Section Header */}
-        <div style={{ textAlign: "center", maxWidth: "620px", margin: "0 auto 3rem auto" }}>
-          <span style={{
-            fontFamily: "var(--font-sans)",
-            fontSize: "0.76rem",
-            fontWeight: 700,
-            letterSpacing: "0.08em",
-            textTransform: "uppercase",
-            color: "#C2410C",
-            display: "inline-block",
-            marginBottom: "0.4rem"
-          }}>
-            Customer Love & Real Reviews
-          </span>
-          <h2 style={{
-            fontFamily: "var(--font-display)",
-            fontSize: "clamp(2rem, 3.4vw, 2.7rem)",
-            fontWeight: 800,
-            color: "var(--text-primary)",
-            margin: "0.2rem 0 0.8rem 0"
-          }}>
-            Loved by 15,000+ Real Customers
-          </h2>
-          <div style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", color: "var(--text-secondary)", fontSize: "0.88rem" }}>
+        {/* Clean Editorial Header */}
+        <div style={{
+          display: "flex",
+          alignItems: "flex-end",
+          justifyContent: "space-between",
+          flexWrap: "wrap",
+          gap: "1rem",
+          marginBottom: "2rem"
+        }}>
+          <div>
+            <span className="section-label">Customer Feedback</span>
+            <h2 className="section-heading" style={{ margin: 0 }}>
+              Real Results Across Skin Types
+            </h2>
+          </div>
+
+          <div style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", fontSize: "0.86rem" }}>
             <div style={{ display: "flex", gap: "2px" }}>
               {[...Array(5)].map((_, i) => (
-                <Star key={i} size={14} fill="#D97706" color="#D97706" />
+                <Star key={i} size={14} fill="var(--accent-amber)" color="var(--accent-amber)" />
               ))}
             </div>
-            <span><strong>4.94 / 5.0</strong> verified average across 1,480+ Indian deliveries</span>
+            <strong className="tabular-nums" style={{ color: "var(--text-main)" }}>4.9 / 5.0</strong>
+            <span style={{ color: "var(--text-caption)" }}>· 1,480+ verified reviews</span>
           </div>
         </div>
 
-        {/* 4-Card Reviews Grid */}
-        <div style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(4, 1fr)",
-          gap: "1.25rem"
-        }} className="reviews-grid">
+        {/* 4-Column Reviews */}
+        <div className="reviews-grid">
           {reviews.map((r) => (
-            <div
-              key={r.id}
-              style={{
-                backgroundColor: "#fff",
-                borderRadius: "var(--radius-md)",
-                padding: "1.75rem",
-                boxShadow: "var(--shadow-sm)",
-                border: "1px solid var(--border-light)",
-                display: "flex",
-                flexDirection: "column",
-                position: "relative"
-              }}
-            >
-              {/* Star rating & Skin Type */}
+            <div key={r.id} className="review-card">
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "0.75rem" }}>
                 <div style={{ display: "flex", gap: "2px" }}>
                   {[...Array(5)].map((_, i) => (
-                    <Star key={i} size={14} fill="#EAB308" color="#EAB308" />
+                    <Star key={i} size={11} fill="var(--accent-amber)" color="var(--accent-amber)" />
                   ))}
                 </div>
-                <div style={{ display: "flex", alignItems: "center", gap: "0.25rem", color: "#166534", fontSize: "0.72rem", fontWeight: 700 }}>
-                  <CheckCircle2 size={13} />
-                  <span>Verified</span>
-                </div>
+                <span style={{ fontSize: "0.7rem", fontWeight: 600, color: "var(--accent-pine)" }}>
+                  {r.verifiedLabel}
+                </span>
               </div>
 
-              <div style={{ fontSize: "0.75rem", color: "var(--accent-sage)", fontWeight: 700, marginBottom: "0.6rem" }}>
+              <div style={{ fontSize: "0.74rem", fontWeight: 600, color: "var(--text-caption)", marginBottom: "0.55rem" }}>
                 {r.skinType}
               </div>
 
-              <p style={{ fontSize: "0.88rem", color: "var(--text-secondary)", lineHeight: 1.6, marginBottom: "1.5rem", flexGrow: 1 }}>
+              <p style={{ fontSize: "0.86rem", color: "var(--text-main)", lineHeight: 1.6, marginBottom: "1.25rem", flexGrow: 1 }}>
                 "{r.comment}"
               </p>
 
-              <div style={{ borderTop: "1px solid var(--border-light)", paddingTop: "0.85rem" }}>
-                <div style={{ fontWeight: 700, fontSize: "0.9rem", color: "var(--text-primary)" }}>
-                  {r.name}
+              <div style={{ borderTop: "1px solid var(--border-light)", paddingTop: "0.75rem" }}>
+                <div style={{ fontWeight: 600, fontSize: "0.86rem", color: "var(--text-main)" }}>
+                  {r.name} · <span style={{ fontWeight: 400, color: "var(--text-caption)" }}>{r.location}</span>
                 </div>
-                <div style={{ fontSize: "0.75rem", color: "var(--text-muted)" }}>
-                  {r.location}
-                </div>
-                <div style={{ fontSize: "0.74rem", color: "var(--accent-terracotta)", fontWeight: 600, marginTop: "0.25rem" }}>
-                  {r.product}
-                </div>
+                <button
+                  onClick={() => handleOpenReviewedProduct(r.productId)}
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "0.25rem",
+                    fontSize: "0.74rem",
+                    color: "var(--accent-pine)",
+                    fontWeight: 600,
+                    marginTop: "0.25rem",
+                    padding: 0,
+                    textAlign: "left"
+                  }}
+                >
+                  <span>{r.productName}</span>
+                  <ArrowUpRight size={12} />
+                </button>
               </div>
             </div>
           ))}
         </div>
 
       </div>
-
-      <style>{`
-        @media (max-width: 1024px) {
-          .reviews-grid {
-            grid-template-columns: repeat(2, 1fr) !important;
-          }
-        }
-        @media (max-width: 600px) {
-          .reviews-grid {
-            grid-template-columns: 1fr !important;
-          }
-        }
-      `}</style>
     </section>
   );
 };

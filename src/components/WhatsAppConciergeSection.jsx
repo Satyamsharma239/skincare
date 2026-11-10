@@ -10,13 +10,13 @@ export const WhatsAppConciergeSection = () => {
     let query = "";
 
     if (promptType === "acne") {
-      query = `Hello ${settings.storeName}! 🌿 I have active breakouts and stubborn dark marks. Could your team recommend the right clinical actives for my skin?`;
+      query = `Hello ${settings.storeName}! I have active breakouts and stubborn dark marks. Could your team recommend the right clinical actives for my skin?`;
     } else if (promptType === "barrier") {
-      query = `Hello ${settings.storeName}! 🛡️ My skin barrier is red, stinging, and dehydrated from over-exfoliation. What restorative ceramide regimen should I start?`;
+      query = `Hello ${settings.storeName}! My skin barrier is red, stinging, and dehydrated from over-exfoliation. What restorative ceramide regimen should I start?`;
     } else if (promptType === "retinol") {
-      query = `Hello ${settings.storeName}! ⏳ I want to start using retinol for fine lines and skin texture. Could you guide me on slow-release introduction?`;
+      query = `Hello ${settings.storeName}! I want to start using retinol for fine lines and skin texture. Could you guide me on slow-release introduction?`;
     } else {
-      query = `Hello ${settings.storeName}! 🌿 I would like to get a personalized skincare consultation.`;
+      query = `Hello ${settings.storeName}! I would like to get a personalized skincare consultation.`;
     }
 
     window.open(`https://wa.me/${cleanPhone}?text=${encodeURIComponent(query)}`, "_blank");

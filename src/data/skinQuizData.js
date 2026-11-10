@@ -1,110 +1,97 @@
 export const QUIZ_QUESTIONS = [
   {
     id: 1,
-    title: "How does your skin feel midday (approx. 4 hours after washing)?",
-    subtitle: "This helps identify your baseline sebum production and barrier permeability.",
+    title: "How does your skin feel 4 hours after washing?",
+    subtitle: "Helps establish your baseline sebum production and lipid barrier permeability.",
     options: [
       {
         id: "oily",
-        label: "Shiny and slick across my T-zone and cheeks",
+        label: "Noticeably shiny across T-zone and cheeks",
         hint: "Oily / High Sebum",
-        icon: "✨",
         suggestedType: "Oily / Combination"
       },
       {
         id: "combination",
-        label: "Shiny on forehead and nose, but normal or dry on cheeks",
+        label: "Shiny on forehead and nose, balanced or dry on cheeks",
         hint: "Combination Skin",
-        icon: "⚖️",
         suggestedType: "Oily / Combination"
       },
       {
         id: "dry",
         label: "Tight, slightly rough, or showing dry flaky patches",
         hint: "Dry / Dehydrated",
-        icon: "🏜️",
         suggestedType: "Dry / Sensitive"
       },
       {
         id: "sensitive",
-        label: "Prone to redness, stinging, or reacts easily to products",
+        label: "Prone to redness, stinging, or reacts easily to actives",
         hint: "Sensitive / Reactive",
-        icon: "🌸",
         suggestedType: "Dry / Sensitive"
       },
       {
         id: "normal",
-        label: "Comfortable, balanced, neither overly shiny nor dry",
-        hint: "Balanced / Normal",
-        icon: "🌿",
+        label: "Balanced and comfortable—neither shiny nor tight",
+        hint: "Normal / Balanced",
         suggestedType: "All Skin Types"
       }
     ]
   },
   {
     id: 2,
-    title: "What is your #1 primary skin goal or frustration right now?",
-    subtitle: "We prioritize targeted clinical actives that address your main concern first.",
+    title: "What is your primary skin goal right now?",
+    subtitle: "We match targeted clinical percentages to your main skin priority first.",
     options: [
       {
         id: "acne",
         label: "Clear active breakouts, clogged pores, and blackheads",
         concern: "Acne & Blemishes",
-        icon: "🎯",
-        productIds: ["prod-3", "prod-1"]
+        productIds: ["prod-3", "prod-1", "prod-20"]
       },
       {
         id: "pigmentation",
-        label: "Fade dark spots, post-acne marks, and uneven skin tone",
+        label: "Fade dark spots, post-acne marks, and uneven tone",
         concern: "Dullness & Spots",
-        icon: "💡",
-        productIds: ["prod-1", "prod-4"]
+        productIds: ["prod-7", "prod-1"]
       },
       {
         id: "barrier",
-        label: "Repair damaged barrier, soothe redness, and stop irritation",
+        label: "Repair a compromised barrier, calm redness, and hydrate",
         concern: "Barrier Repair",
-        icon: "🛡️",
         productIds: ["prod-2", "prod-6"]
       },
       {
         id: "antiaging",
-        label: "Smooth fine lines, improve firmness, and boost elasticity",
+        label: "Smooth fine lines, boost elasticity, and refine texture",
         concern: "Anti-Aging",
-        icon: "⏳",
         productIds: ["prod-5", "prod-2"]
       },
       {
         id: "sunprotection",
-        label: "Prevent tanning, sun damage, and premature photo-aging",
+        label: "Prevent tanning, UV damage, and photo-pigmentation",
         concern: "Sun Protection",
-        icon: "☀️",
         productIds: ["prod-4", "prod-1"]
       }
     ]
   },
   {
     id: 3,
-    title: "What is your typical daily sun and screen exposure?",
-    subtitle: "Determines photoprotection requirements and antioxidant defense.",
+    title: "What is your typical daily light and climate exposure?",
+    subtitle: "Determines UVA/UVB filter weight and humidity-resistant occlusive balance.",
     options: [
       {
         id: "outdoor",
-        label: "Significant outdoor commute or direct sunlight (> 2 hours)",
-        icon: "🕶️",
-        boost: "High UV Defense Needed"
+        label: "Outdoor commute or direct sun exposure (> 2 hours daily)",
+        boost: "High UV & Pollution Defense"
       },
       {
         id: "screens",
-        label: "Mostly indoors in AC under laptops/blue-light screens (8+ hrs)",
-        icon: "💻",
-        boost: "Hydration Lock & Blue Light Shield"
+        label: "Primarily indoors in air-conditioning under screens (8+ hrs)",
+        boost: "TEWL Moisture Lock"
       },
       {
         id: "mixed",
-        label: "Moderate balanced mix of indoor and outdoor activities",
-        icon: "🚶",
-        boost: "Balanced Daily Routine"
+        label: "Balanced mix of indoor work and short outdoor errands",
+        boost: "All-Weather Barrier Balance"
       }
     ]
   }

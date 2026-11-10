@@ -31,7 +31,7 @@ export const WishlistDrawer = () => {
         addToCart(prod, 1);
       }
     });
-    showToast(`Moved ${wishlistProducts.length} items to your shopping bag! 🎉`, "success");
+    showToast(`Moved ${wishlistProducts.length} items to your cart!`, "success");
     setIsWishlistOpen(false);
   };
 
@@ -89,14 +89,14 @@ export const WishlistDrawer = () => {
                 width: "32px",
                 height: "32px",
                 borderRadius: "50%",
-                backgroundColor: "#FFF7ED",
-                color: "#C2410C",
+                backgroundColor: "#FFF1F4",
+                color: "#FF3F6C",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center"
               }}
             >
-              <Heart size={16} fill="#C2410C" />
+              <Heart size={16} fill="#FF3F6C" color="#FF3F6C" />
             </div>
             <div>
               <h3
@@ -142,8 +142,8 @@ export const WishlistDrawer = () => {
                   width: "68px",
                   height: "68px",
                   borderRadius: "50%",
-                  backgroundColor: "#FFF7ED",
-                  color: "#C2410C",
+                  backgroundColor: "#FFF1F4",
+                  color: "#FF3F6C",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
@@ -173,12 +173,6 @@ export const WishlistDrawer = () => {
                   if (el) el.scrollIntoView({ behavior: "smooth" });
                 }}
                 className="btn btn-primary"
-                style={{
-                  padding: "0.75rem 1.75rem",
-                  fontSize: "0.88rem",
-                  fontWeight: 700,
-                  borderRadius: "var(--radius-full)"
-                }}
               >
                 Explore Formulations
               </button>
@@ -302,22 +296,10 @@ export const WishlistDrawer = () => {
                           onClick={() => {
                             addToCart(prod, 1);
                           }}
-                          className="btn btn-secondary"
-                          style={{
-                            padding: "0.4rem 0.85rem",
-                            fontSize: "0.76rem",
-                            fontWeight: 600,
-                            borderRadius: "var(--radius-full)",
-                            backgroundColor: "#FFFFFF",
-                            color: "#18181B",
-                            border: "1.5px solid var(--border-medium)",
-                            display: "inline-flex",
-                            alignItems: "center",
-                            gap: "0.3rem"
-                          }}
+                          className="btn btn-secondary btn-sm"
                         >
                           <ShoppingBag size={13} />
-                          <span>Add to Cart</span>
+                          <span>Add to Bag</span>
                         </button>
 
                         <button
@@ -325,19 +307,7 @@ export const WishlistDrawer = () => {
                             setIsWishlistOpen(false);
                             openExpressCheckout(prod, 1);
                           }}
-                          className="btn btn-primary"
-                          style={{
-                            padding: "0.4rem 0.75rem",
-                            fontSize: "0.76rem",
-                            fontWeight: 700,
-                            borderRadius: "var(--radius-full)",
-                            backgroundColor: "#18181B",
-                            color: "#FFFFFF",
-                            border: "1.5px solid #18181B",
-                            display: "inline-flex",
-                            alignItems: "center",
-                            gap: "0.3rem"
-                          }}
+                          className="btn btn-primary btn-sm"
                           title="Instant Checkout"
                         >
                           <span>Buy Now</span>

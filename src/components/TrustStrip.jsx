@@ -1,99 +1,52 @@
 import React from "react";
-import { Truck, ShieldCheck, MessageCircle, Banknote, Sparkles } from "lucide-react";
+import { ShieldCheck, Truck, Banknote, FlaskConical } from "lucide-react";
 
 export const TrustStrip = () => {
-  const trustPoints = [
-    {
-      icon: <Truck size={17} color="#18181B" />,
-      title: "Free Express Courier",
-      subtitle: "On orders above ₹499 via BlueDart/Delhivery"
-    },
-    {
-      icon: <ShieldCheck size={17} color="#18181B" />,
-      title: "Dermatologically Tested",
-      subtitle: "0% synthetic perfume or drying alcohol"
-    },
-    {
-      icon: <MessageCircle size={17} color="#18181B" />,
-      title: "Direct WhatsApp Ordering",
-      subtitle: "Instant confirmation & human chat support"
-    },
-    {
-      icon: <Banknote size={17} color="#18181B" />,
-      title: "Doorstep COD & UPI",
-      subtitle: "Pay on delivery across 19,000+ PIN codes"
-    }
-  ];
-
   return (
-    <div
-      style={{
-        backgroundColor: "#FAF8F5",
-        borderTop: "1px solid #E8E4DC",
-        borderBottom: "1px solid #E8E4DC",
-        padding: "1.15rem 0"
-      }}
-      className="trust-strip-ribbon"
-    >
+    <div className="trust-pillars-strip">
       <div className="container">
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
-            gap: "1.25rem",
-            alignItems: "center"
-          }}
-        >
-          {trustPoints.map((tp, idx) => (
-            <div
-              key={idx}
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "0.85rem",
-                padding: "0.2rem 0"
-              }}
-            >
-              <div
-                style={{
-                  width: "40px",
-                  height: "40px",
-                  borderRadius: "50%",
-                  backgroundColor: "#FFFFFF",
-                  border: "1px solid #E4E4E7",
-                  boxShadow: "0 2px 6px rgba(0,0,0,0.03)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  flexShrink: 0
-                }}
-              >
-                {tp.icon}
-              </div>
-              <div>
-                <div
-                  style={{
-                    fontSize: "0.86rem",
-                    fontWeight: 700,
-                    color: "#18181B",
-                    fontFamily: "var(--font-sans)"
-                  }}
-                >
-                  {tp.title}
-                </div>
-                <div
-                  style={{
-                    fontSize: "0.74rem",
-                    color: "#71717A",
-                    fontFamily: "var(--font-sans)",
-                    fontWeight: 500
-                  }}
-                >
-                  {tp.subtitle}
-                </div>
-              </div>
+        <div className="trust-pillars-grid">
+          
+          <div className="trust-pillar-item">
+            <div className="trust-pillar-icon">
+              <FlaskConical size={20} strokeWidth={1.6} color="var(--accent-pine)" />
             </div>
-          ))}
+            <div>
+              <div className="trust-pillar-title">Declared Clinical Dosages</div>
+              <div className="trust-pillar-desc">Exact active percentages printed on every label with zero filler claims</div>
+            </div>
+          </div>
+
+          <div className="trust-pillar-item">
+            <div className="trust-pillar-icon">
+              <ShieldCheck size={20} strokeWidth={1.6} color="var(--text-main)" />
+            </div>
+            <div>
+              <div className="trust-pillar-title">100% Fragrance & Dye Free</div>
+              <div className="trust-pillar-desc">Zero artificial perfume, zero drying alcohol, non-comedogenic formulas</div>
+            </div>
+          </div>
+
+          <div className="trust-pillar-item">
+            <div className="trust-pillar-icon">
+              <Banknote size={20} strokeWidth={1.6} color="var(--accent-pine)" />
+            </div>
+            <div>
+              <div className="trust-pillar-title">Doorstep Cash on Delivery</div>
+              <div className="trust-pillar-desc">Pay cash or scan UPI at delivery across 19,000+ Indian PIN codes</div>
+            </div>
+          </div>
+
+          <div className="trust-pillar-item">
+            <div className="trust-pillar-icon">
+              <Truck size={20} strokeWidth={1.6} color="var(--text-main)" />
+            </div>
+            <div>
+              <div className="trust-pillar-title">BlueDart Air Express</div>
+              <div className="trust-pillar-desc">Free express courier above ₹499 with live AWB tracking</div>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>

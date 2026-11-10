@@ -1,6 +1,6 @@
 import React from "react";
 import { useStore } from "../context/StoreContext";
-import { Heart, ShoppingBag, Star, MessageSquareText, Eye } from "lucide-react";
+import { Heart, Star } from "lucide-react";
 
 export const ProductCard = ({ product }) => {
   const {
@@ -13,9 +13,8 @@ export const ProductCard = ({ product }) => {
   } = useStore();
 
   const isFavorite = wishlist.includes(product.id);
-  const discountPercent = product.originalPrice
-    ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
-    : 0;
+  const hasDiscount = Boolean(product.originalPrice && product.originalPrice > product.price);
+  const discountDiff = hasDiscount ? product.originalPrice - product.price : 0;
 
   const handleBuyNow = (e) => {
     e.stopPropagation();
@@ -28,23 +27,24 @@ export const ProductCard = ({ product }) => {
   };
 
   const fallbackImage = product.category === "Moisturizers" 
-    ? "/cream-swirl.jpg" 
+    ? "/products/cream-ceramide-jar.jpg" 
     : product.category === "Bundles"
-      ? "/lumera-hero.jpg"
-      : "/serum-dropper.jpg";
+      ? "/products/routine-box-set.jpg"
+      : "/products/serum-niacinamide.jpg";
+
+  const shortVolume = (product.volume || "").split("/")[0].trim() || product.category;
 
   return (
-    <div 
-      className="product-card-root"
+    <article 
+      className="product-card"
       onClick={() => setSelectedProductForModal(product)}
-      style={{ cursor: "pointer" }}
     >
-      {/* 1. Visual 1:1 Media Container */}
-      <div className="product-card-img-wrap">
+      {/* 1. Studio Packshot Image */}
+      <div className="card-thumb-wrap">
         <img 
           src={product.image} 
           alt={product.name} 
-          className="product-card-img"
+          className={`card-thumb-img ${product.hoverImage ? "" : "no-hover-swap"}`}
           loading="lazy"
           onError={(e) => {
             e.currentTarget.onerror = null;
@@ -52,232 +52,103 @@ export const ProductCard = ({ product }) => {
           }}
         />
 
-        {/* Top Badges */}
-        <div style={{ position: "absolute", top: "0.65rem", left: "0.65rem", zIndex: 2, display: "flex", flexDirection: "column", gap: "0.3rem" }}>
-          {!product.inStock && (
-            <span style={{
-              fontFamily: "var(--font-sans)",
-              fontSize: "0.65rem",
-              fontWeight: 800,
-              backgroundColor: "#DC2626",
-              color: "#FFFFFF",
-              padding: "0.22rem 0.6rem",
-              borderRadius: "var(--radius-full)",
-              letterSpacing: "0.04em",
-              textTransform: "uppercase"
-            }}>
-              Sold Out
-            </span>
-          )}
+        {product.hoverImage && (
+          <img 
+            src={product.hoverImage} 
+            alt={`${product.name} texture preview`} 
+            className="card-thumb-hover"
+            loading="lazy"
+            onError={(e) => {
+              e.currentTarget.style.display = "none";
+            }}
+          />
+        )}
 
-          {product.badge && product.inStock && (
-            <span style={{
-              fontFamily: "var(--font-sans)",
-              fontSize: "0.65rem",
-              fontWeight: 700,
-              backgroundColor: "#18181B",
-              color: "#FFFFFF",
-              padding: "0.22rem 0.55rem",
-              borderRadius: "var(--radius-full)",
-              letterSpacing: "0.04em",
-              textTransform: "uppercase"
-            }}>
-              {product.badge}
-            </span>
-          )}
+        {!product.inStock ? (
+          <span className="card-tag-badge sold-out">Sold Out</span>
+        ) : product.badge ? (
+          <span className="card-tag-badge">{product.badge}</span>
+        ) : null}
 
-          {discountPercent > 0 && (
-            <span style={{
-              fontFamily: "var(--font-sans)",
-              fontSize: "0.64rem",
-              fontWeight: 700,
-              backgroundColor: "#FFF7ED",
-              color: "#C2410C",
-              border: "1px solid #FFEDD5",
-              padding: "0.18rem 0.45rem",
-              borderRadius: "var(--radius-full)",
-              letterSpacing: "0.02em"
-            }}>
-              {discountPercent}% OFF
-            </span>
-          )}
-        </div>
-
-        {/* Wishlist Button */}
         <button
           onClick={(e) => {
             e.stopPropagation();
             toggleWishlist(product.id);
           }}
-          style={{
-            position: "absolute",
-            top: "0.65rem",
-            right: "0.65rem",
-            backgroundColor: "rgba(255, 255, 255, 0.92)",
-            backdropFilter: "blur(4px)",
-            borderRadius: "50%",
-            width: "32px",
-            height: "32px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            boxShadow: "0 2px 6px rgba(0,0,0,0.08)",
-            zIndex: 2,
-            transition: "transform 0.15s ease"
-          }}
-          title={isFavorite ? "Remove from wishlist" : "Add to wishlist"}
+          className="card-heart-btn"
+          title={isFavorite ? "Remove from wishlist" : "Save to wishlist"}
+          aria-label={isFavorite ? "Remove from wishlist" : "Save to wishlist"}
         >
-          <Heart size={15} strokeWidth={2} color={isFavorite ? "#C2410C" : "var(--text-muted)"} fill={isFavorite ? "#C2410C" : "none"} />
+          <Heart 
+            size={15} 
+            strokeWidth={1.7} 
+            color={isFavorite ? "var(--accent-rose)" : "var(--text-main)"} 
+            fill={isFavorite ? "var(--accent-rose)" : "none"} 
+          />
         </button>
       </div>
 
-      {/* 2. Product Content Body */}
-      <div className="card-body" style={{ padding: "1rem", display: "flex", flexDirection: "column", flexGrow: 1 }}>
+      {/* 2. Aligned Details Body */}
+      <div className="card-content-body">
         
-        {/* Category & Volume */}
-        <div style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          marginBottom: "0.3rem",
-          fontSize: "0.72rem",
-          fontFamily: "var(--font-sans)",
-          color: "var(--text-muted)",
-          letterSpacing: "0.04em",
-          textTransform: "uppercase",
-          fontWeight: 600
-        }}>
-          <span>{product.category}</span>
-          <span>{product.volume}</span>
-        </div>
-
-        {/* Title */}
-        <h3 
-          className="card-title"
-          style={{
-            fontSize: "0.96rem",
-            fontWeight: 700,
-            lineHeight: 1.35,
-            marginBottom: "0.35rem",
-            color: "var(--text-primary)",
-            display: "-webkit-box",
-            WebkitLineClamp: 2,
-            WebkitBoxOrient: "vertical",
-            overflow: "hidden"
-          }}
-        >
+        <h3 className="card-item-title" title={product.name}>
           {product.name}
         </h3>
 
-        {/* Star Rating */}
-        <div style={{ display: "flex", alignItems: "center", gap: "0.4rem", marginBottom: "0.45rem" }}>
-          <div className="rating-pill">
-            <Star size={10} fill="#D97706" color="#D97706" />
-            <span>{product.rating || 4.9}</span>
-          </div>
-          <span style={{ fontSize: "0.72rem", color: "var(--text-muted)" }}>
-            ({product.reviewsCount ? `${product.reviewsCount}` : "240"})
-          </span>
-        </div>
-
-        {/* Actives Snippet (Desktop) */}
-        <p 
-          className="card-actives"
-          style={{
-            fontSize: "0.78rem",
-            color: "var(--text-secondary)",
-            marginBottom: "0.6rem",
-            lineHeight: 1.4,
-            display: "-webkit-box",
-            WebkitLineClamp: 2,
-            WebkitBoxOrient: "vertical",
-            overflow: "hidden"
-          }}
-        >
-          {product.keyActives}
+        <p className="card-benefit-line">
+          {product.subtitle}
         </p>
 
-        {/* Price Row */}
-        <div style={{ display: "flex", alignItems: "baseline", gap: "0.45rem", flexWrap: "wrap", marginTop: "auto", marginBottom: "0.85rem" }}>
-          <span className="card-price-main" style={{ fontSize: "1.15rem", fontWeight: 800, color: "var(--text-primary)" }}>
-            {settings.currency}{product.price}
+        <div className="card-rating-volume">
+          <span className="card-inline-rating tabular-nums">
+            <Star size={11} fill="var(--accent-amber)" color="var(--accent-amber)" />
+            <span>{product.rating || 4.9}</span>
+            <span style={{ color: "var(--text-subtle)", fontWeight: 400 }}>
+              ({product.reviewsCount || 180})
+            </span>
           </span>
-          {product.originalPrice && product.originalPrice > product.price && (
-            <span style={{ fontSize: "0.8rem", textDecoration: "line-through", color: "var(--text-muted)" }}>
-              {settings.currency}{product.originalPrice}
-            </span>
-          )}
-          {discountPercent > 0 && (
-            <span style={{
-              fontSize: "0.68rem",
-              fontWeight: 700,
-              color: "#15803D",
-              backgroundColor: "#DCFCE7",
-              padding: "0.12rem 0.4rem",
-              borderRadius: "var(--radius-xs)"
-            }}>
-              {discountPercent}% OFF
-            </span>
-          )}
+          <span style={{ color: "var(--border-medium)" }}>·</span>
+          <span>{shortVolume}</span>
         </div>
 
-        {/* Dual Actions: Buy Now & Add to Cart */}
-        <div className="card-actions" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.45rem" }}>
-          <button
-            onClick={handleBuyNow}
-            disabled={!product.inStock}
-            className="btn btn-whatsapp"
-            style={{ 
-              width: "100%", 
-              fontSize: "clamp(0.74rem, 1.8vw, 0.82rem)", 
-              padding: "0.55rem 0.25rem",
-              fontWeight: 700,
-              borderRadius: "var(--radius-full)",
-              backgroundColor: "#18181B",
-              color: "#FFFFFF",
-              border: "1.5px solid #18181B",
-              opacity: product.inStock ? 1 : 0.5,
-              cursor: product.inStock ? "pointer" : "not-allowed",
-              display: "inline-flex",
-              alignItems: "center",
-              justifyContent: "center",
-              whiteSpace: "nowrap",
-              gap: "0.25rem"
-            }}
-            title={product.inStock ? "Direct Checkout (COD / Online)" : "Currently Out of Stock"}
-          >
-            <span>{product.inStock ? "Buy Now" : "Sold Out"}</span>
-          </button>
+        {/* Price + Actions Pinned Cleanly to Bottom */}
+        <div className="card-footer-stack">
+          <div className="card-price-row">
+            <span className="card-price-current tabular-nums">
+              {settings?.currency || "₹"}{product.price.toLocaleString()}
+            </span>
+            {hasDiscount && (
+              <span className="card-price-mrp tabular-nums">
+                {settings?.currency || "₹"}{product.originalPrice.toLocaleString()}
+              </span>
+            )}
+            {hasDiscount && (
+              <span className="card-price-discount tabular-nums">
+                Save {settings?.currency || "₹"}{discountDiff}
+              </span>
+            )}
+          </div>
 
           <button
             onClick={handleAddBag}
             disabled={!product.inStock}
-            className="btn btn-secondary"
-            style={{ 
-              width: "100%", 
-              fontSize: "clamp(0.72rem, 1.7vw, 0.8rem)", 
-              padding: "0.55rem 0.25rem",
-              fontWeight: 600,
-              borderRadius: "var(--radius-full)",
-              backgroundColor: "#FFFFFF",
-              color: "#18181B",
-              border: "1.5px solid var(--border-medium)",
-              opacity: product.inStock ? 1 : 0.5,
-              cursor: product.inStock ? "pointer" : "not-allowed",
-              display: "inline-flex",
-              alignItems: "center",
-              justifyContent: "center",
-              whiteSpace: "nowrap",
-              gap: "0.25rem"
-            }}
-            title={product.inStock ? "Add to cart" : "Currently Out of Stock"}
+            className="btn-card-add"
           >
-            <ShoppingBag size={12} />
-            <span>{product.inStock ? "Add to Cart" : "Out"}</span>
+            {product.inStock ? "Add to Bag" : "Out of Stock"}
           </button>
+
+          {product.inStock && (
+            <button
+              onClick={handleBuyNow}
+              className="btn-card-quick-cod"
+              title="1-Step Guest Checkout (COD & UPI)"
+            >
+              Quick Buy (COD) →
+            </button>
+          )}
         </div>
 
       </div>
-    </div>
+    </article>
   );
 };

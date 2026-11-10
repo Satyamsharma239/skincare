@@ -139,10 +139,10 @@ export const WhatsAppCheckoutModal = () => {
           backgroundColor: "var(--bg-primary)"
         }}>
           <div>
-            <div style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem", color: "var(--accent-clay)", fontSize: "0.72rem", fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase" }}>
+            <div style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem", color: "var(--accent-emerald)", fontSize: "0.72rem", fontWeight: 800, letterSpacing: "0.08em", textTransform: "uppercase" }}>
               <span>Express Delivery & Dispatch</span>
             </div>
-            <h3 style={{ fontSize: "1.35rem", fontFamily: "var(--font-display)", fontWeight: 700, letterSpacing: "-0.02em", margin: "2px 0 0 0", color: "var(--text-primary)" }}>
+            <h3 style={{ fontSize: "1.35rem", fontWeight: 800, letterSpacing: "-0.02em", margin: "2px 0 0 0", color: "var(--text-main)" }}>
               Complete Delivery Details
             </h3>
           </div>

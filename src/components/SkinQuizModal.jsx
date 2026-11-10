@@ -5,7 +5,7 @@ import { X, ArrowRight, ArrowLeft, CheckCircle2, MessageCircle, ShoppingBag, Rot
 import confetti from "canvas-confetti";
 
 export const SkinQuizModal = () => {
-  const { isQuizOpen, setIsQuizOpen, products, settings, addToCart } = useStore();
+  const { isQuizOpen, setIsQuizOpen, products, settings, addToCart, openExpressCheckout } = useStore();
 
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
   const [answers, setAnswers] = useState({});
@@ -73,20 +73,20 @@ export const SkinQuizModal = () => {
       .join("\n");
 
     const msg = [
-      `🌿 *MY PERSONALIZED SKINCARE DIAGNOSTIC* 🌿`,
+      `*PERSONALIZED SKINCARE DIAGNOSTIC*`,
       `*Store:* ${settings.storeName}`,
       ``,
-      `👤 *Diagnostic Assessment:*`,
+      `*Skin Assessment:*`,
       `• *Skin Profile:* ${recommendedSkinType}`,
       `• *Primary Concern:* ${recommendedConcern}`,
       `• *Daily Exposure:* ${selectedLifestyleOption?.label || "Urban Climate"}`,
       ``,
-      `✨ *Prescribed Regimen:*`,
+      `*Prescribed Regimen:*`,
       productList,
       ``,
-      `💰 *Total:* ${settings.currency}${routinePrice}`,
+      `*Total:* ${settings.currency}${routinePrice}`,
       ``,
-      `Please confirm these formulations are right for my barrier and help me place my order. Thank you!`
+      `Please confirm these formulations are right for my barrier and help me place my COD / UPI order. Thank you.`
     ].join("\n");
 
     window.open(`https://wa.me/${cleanPhone}?text=${encodeURIComponent(msg)}`, "_blank");
@@ -144,7 +144,7 @@ export const SkinQuizModal = () => {
               STEP 0{currentStepIndex + 1} OF 0{QUIZ_QUESTIONS.length}
             </div>
 
-            <h3 style={{ fontSize: "1.25rem", fontWeight: 400, fontFamily: "var(--font-serif)", lineHeight: 1.3, marginBottom: "0.4rem" }}>
+            <h3 style={{ fontSize: "1.3rem", fontWeight: 700, lineHeight: 1.25, marginBottom: "0.4rem", color: "var(--text-main)" }}>
               {currentQuestion.title}
             </h3>
             <p style={{ fontSize: "0.84rem", color: "var(--text-secondary)", marginBottom: "1.5rem" }}>
@@ -219,7 +219,7 @@ export const SkinQuizModal = () => {
               }}>
                 Diagnostic Evaluation
               </div>
-              <h3 style={{ fontSize: "1.45rem", fontFamily: "var(--font-serif)", fontWeight: 400, marginBottom: "0.3rem" }}>
+              <h3 style={{ fontSize: "1.45rem", fontWeight: 700, marginBottom: "0.3rem", color: "var(--text-main)" }}>
                 Your Prescribed Regimen
               </h3>
               <p style={{ fontSize: "0.84rem", color: "var(--text-secondary)" }}>
@@ -274,21 +274,33 @@ export const SkinQuizModal = () => {
 
             <div style={{ display: "flex", flexDirection: "column", gap: "0.65rem" }}>
               <button
+                onClick={() => {
+                  matchedProducts.forEach((p) => addToCart(p, 1));
+                  setIsQuizOpen(false);
+                  openExpressCheckout(null);
+                }}
+                className="btn btn-primary"
+                style={{ width: "100%", padding: "0.85rem" }}
+              >
+                <ShoppingBag size={16} />
+                <span>Order Regimen Now (COD / UPI)</span>
+              </button>
+
+              <button
+                onClick={handleAddRoutineToBag}
+                className="btn btn-secondary"
+                style={{ width: "100%", padding: "0.85rem" }}
+              >
+                <span>Add All {matchedProducts.length} to Bag</span>
+              </button>
+
+              <button
                 onClick={handleOrderQuizWhatsApp}
                 className="btn btn-whatsapp"
                 style={{ width: "100%", padding: "0.85rem" }}
               >
                 <MessageCircle size={17} />
-                <span>Order Prescribed Regimen on WhatsApp</span>
-              </button>
-
-              <button
-                onClick={handleAddRoutineToBag}
-                className="btn btn-primary"
-                style={{ width: "100%", padding: "0.85rem" }}
-              >
-                <ShoppingBag size={16} />
-                <span>Add Prescribed Regimen to Cart</span>
+                <span>Consult & Order via WhatsApp</span>
               </button>
 
               <button

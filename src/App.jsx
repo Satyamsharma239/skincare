@@ -10,6 +10,7 @@ import { ExpressCheckoutDrawer } from "./components/ExpressCheckoutDrawer";
 import { ProductDetailModal } from "./components/ProductDetailModal";
 import { WhatsAppCheckoutModal } from "./components/WhatsAppCheckoutModal";
 import { OrderConfirmationModal } from "./components/OrderConfirmationModal";
+import { SkinQuizModal } from "./components/SkinQuizModal";
 import { FloatingWhatsApp } from "./components/FloatingWhatsApp";
 import { CheckCircle2, AlertCircle, Info, RefreshCw } from "lucide-react";
 
@@ -155,20 +156,24 @@ const AppContent = () => {
   const { toastMessage } = useStore();
   const [currentPath, setCurrentPath] = useState(() => {
     if (typeof window !== "undefined") {
-      return window.location.pathname.toLowerCase();
+      return (window.location.pathname + window.location.hash).toLowerCase();
     }
     return "/";
   });
 
   useEffect(() => {
     const handleLocationChange = () => {
-      setCurrentPath(window.location.pathname.toLowerCase());
+      setCurrentPath((window.location.pathname + window.location.hash).toLowerCase());
     };
     window.addEventListener("popstate", handleLocationChange);
-    return () => window.removeEventListener("popstate", handleLocationChange);
+    window.addEventListener("hashchange", handleLocationChange);
+    return () => {
+      window.removeEventListener("popstate", handleLocationChange);
+      window.removeEventListener("hashchange", handleLocationChange);
+    };
   }, []);
 
-  const isAdminRoute = currentPath.startsWith("/admin");
+  const isAdminRoute = currentPath.includes("admin");
 
   if (isAdminRoute) {
     return (
@@ -230,6 +235,7 @@ const AppContent = () => {
       <ProductDetailModal />
       <WhatsAppCheckoutModal />
       <OrderConfirmationModal />
+      <SkinQuizModal />
       <FloatingWhatsApp />
 
       {/* Toast Feedback Notifications */}

@@ -36,15 +36,6 @@ export const AdminCoupons = () => {
 
   return (
     <div>
-      <div style={{ marginBottom: "1.5rem" }}>
-        <h2 style={{ fontSize: "1.6rem", fontWeight: 600, margin: 0 }}>
-          Coupons & Promotion Vouchers
-        </h2>
-        <p style={{ fontSize: "0.85rem", color: "var(--text-secondary)", margin: "2px 0 0 0" }}>
-          Create special discount codes for your customers to apply in their cart before sending their WhatsApp order.
-        </p>
-      </div>
-
       <div style={{
         display: "grid",
         gridTemplateColumns: "1.1fr 0.9fr",

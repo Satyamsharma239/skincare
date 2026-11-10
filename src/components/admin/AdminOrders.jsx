@@ -470,71 +470,71 @@ export const AdminOrders = () => {
 
   return (
     <div>
-      {/* 1. Metric Overview Cards (Shopify / Amazon Seller Style) */}
+      {/* 1. Metric Overview Cards */}
       <div style={{
         display: "grid",
-        gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+        gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
         gap: "1rem",
-        marginBottom: "1.75rem"
+        marginBottom: "1.5rem"
       }}>
         <div className="admin-stat-card">
           <div>
-            <div style={{ fontSize: "0.74rem", textTransform: "uppercase", color: "var(--text-muted)", fontWeight: 600 }}>
+            <div style={{ fontSize: "0.74rem", color: "#78756E", fontWeight: 600 }}>
               Total Orders
             </div>
-            <div style={{ fontSize: "1.6rem", fontWeight: 700, color: "var(--text-primary)", marginTop: "2px" }}>
+            <div className="tabular-nums" style={{ fontSize: "1.55rem", fontWeight: 700, color: "#141414", marginTop: "4px" }}>
               {metrics.totalOrders}
             </div>
           </div>
-          <Package size={28} color="var(--accent-clay)" />
+          <Package size={20} color="#78756E" />
         </div>
 
         <div className="admin-stat-card">
           <div>
-            <div style={{ fontSize: "0.74rem", textTransform: "uppercase", color: "var(--text-muted)", fontWeight: 600 }}>
+            <div style={{ fontSize: "0.74rem", color: "#78756E", fontWeight: 600 }}>
               Gross Revenue
             </div>
-            <div style={{ fontSize: "1.6rem", fontWeight: 700, color: "var(--text-primary)", marginTop: "2px" }}>
+            <div className="tabular-nums" style={{ fontSize: "1.55rem", fontWeight: 700, color: "#141414", marginTop: "4px" }}>
               {settings.currency}{metrics.totalRevenue.toLocaleString("en-IN")}
             </div>
           </div>
-          <DollarSign size={28} color="#15803D" />
+          <DollarSign size={20} color="#78756E" />
         </div>
 
-        <div className="admin-stat-card" style={{ borderLeft: "4px solid #D97706" }}>
+        <div className="admin-stat-card">
           <div>
-            <div style={{ fontSize: "0.74rem", textTransform: "uppercase", color: "#D97706", fontWeight: 700 }}>
+            <div style={{ fontSize: "0.74rem", color: "#B45309", fontWeight: 600 }}>
               Pending Inquiries
             </div>
-            <div style={{ fontSize: "1.6rem", fontWeight: 700, color: "#D97706", marginTop: "2px" }}>
+            <div className="tabular-nums" style={{ fontSize: "1.55rem", fontWeight: 700, color: "#141414", marginTop: "4px" }}>
               {metrics.newInquiries}
             </div>
           </div>
-          <Clock size={28} color="#D97706" />
+          <Clock size={20} color="#B45309" />
         </div>
 
-        <div className="admin-stat-card" style={{ borderLeft: "4px solid #2563EB" }}>
+        <div className="admin-stat-card">
           <div>
-            <div style={{ fontSize: "0.74rem", textTransform: "uppercase", color: "#2563EB", fontWeight: 700 }}>
+            <div style={{ fontSize: "0.74rem", color: "#1E40AF", fontWeight: 600 }}>
               Confirmed & Packed
             </div>
-            <div style={{ fontSize: "1.6rem", fontWeight: 700, color: "#2563EB", marginTop: "2px" }}>
+            <div className="tabular-nums" style={{ fontSize: "1.55rem", fontWeight: 700, color: "#141414", marginTop: "4px" }}>
               {metrics.confirmed}
             </div>
           </div>
-          <CheckCircle2 size={28} color="#2563EB" />
+          <CheckCircle2 size={20} color="#2563EB" />
         </div>
 
-        <div className="admin-stat-card" style={{ borderLeft: "4px solid #16A34A" }}>
+        <div className="admin-stat-card">
           <div>
-            <div style={{ fontSize: "0.74rem", textTransform: "uppercase", color: "#16A34A", fontWeight: 700 }}>
+            <div style={{ fontSize: "0.74rem", color: "#1E4D3B", fontWeight: 600 }}>
               Delivered
             </div>
-            <div style={{ fontSize: "1.6rem", fontWeight: 700, color: "#16A34A", marginTop: "2px" }}>
+            <div className="tabular-nums" style={{ fontSize: "1.55rem", fontWeight: 700, color: "#141414", marginTop: "4px" }}>
               {metrics.delivered}
             </div>
           </div>
-          <Truck size={28} color="#16A34A" />
+          <Truck size={20} color="#1E4D3B" />
         </div>
       </div>
 
@@ -582,20 +582,10 @@ export const AdminOrders = () => {
           <button
             onClick={handleOpenCreateOrder}
             className="btn btn-primary btn-sm"
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "0.45rem",
-              backgroundColor: "#15803D",
-              color: "#FFFFFF",
-              padding: "0.5rem 1rem",
-              borderRadius: "var(--radius-sm)",
-              fontWeight: 700
-            }}
             title="Create new manual order from WhatsApp, call or walk-in"
           >
-            <Plus size={15} />
-            <span>+ Create Order</span>
+            <Plus size={14} />
+            <span>Create Order</span>
           </button>
 
           {/* View Mode Toggle */}

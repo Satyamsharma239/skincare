@@ -8,7 +8,7 @@ export const TrustSection = () => {
   const handleWhatsAppConsult = () => {
     const cleanPhone = settings.whatsappNumber.replace(/[^0-9]/g, "");
     const text = encodeURIComponent(
-      `Hello ${settings.storeName}! 🌿 I have a question about the active percentages in your formulations.`
+      `Hello ${settings.storeName}! I have a question about the active percentages in your formulations.`
     );
     window.open(`https://wa.me/${cleanPhone}?text=${text}`, "_blank");
   };
@@ -31,11 +31,10 @@ export const TrustSection = () => {
           {/* Left Media Graphic */}
           <div style={{ position: "relative" }}>
             <div style={{
-              borderRadius: "var(--radius-lg)",
+              borderRadius: "var(--radius-sm)",
               overflow: "hidden",
-              boxShadow: "var(--shadow-card)",
               border: "1px solid var(--border-light)",
-              backgroundColor: "#EAE5DC"
+              backgroundColor: "var(--bg-studio)"
             }}>
               <img 
                 src="/lab-science.jpg" 
@@ -45,25 +44,24 @@ export const TrustSection = () => {
                   e.currentTarget.onerror = null;
                   e.currentTarget.src = "/lumera-hero.jpg";
                 }}
-                style={{ width: "100%", height: "480px", objectFit: "cover" }}
+                style={{ width: "100%", height: "460px", objectFit: "cover" }}
               />
             </div>
 
             {/* Subtle Laboratory Origin Seal */}
             <div style={{
               position: "absolute",
-              bottom: "1.5rem",
-              left: "1.5rem",
-              backgroundColor: "#fff",
-              padding: "0.85rem 1.25rem",
+              bottom: "1.25rem",
+              left: "1.25rem",
+              backgroundColor: "rgba(255, 255, 255, 0.96)",
+              padding: "0.75rem 1.1rem",
               borderRadius: "var(--radius-xs)",
-              boxShadow: "0 4px 16px rgba(24, 25, 23, 0.08)",
               border: "1px solid var(--border-light)"
             }}>
-              <div style={{ fontFamily: "var(--font-sans)", fontSize: "0.74rem", color: "var(--text-primary)", fontWeight: 600, letterSpacing: "0.04em" }}>
+              <div style={{ fontSize: "0.74rem", color: "var(--text-main)", fontWeight: 700, letterSpacing: "0.02em" }}>
                 ISO 22716 Cleanroom Facility
               </div>
-              <div style={{ fontSize: "0.72rem", color: "var(--text-muted)" }}>
+              <div style={{ fontSize: "0.72rem", color: "var(--text-caption)" }}>
                 Batch calibrated & stability tested in inert nitrogen
               </div>
             </div>
@@ -72,27 +70,25 @@ export const TrustSection = () => {
           {/* Right Editorial Copy */}
           <div>
             <div style={{
-              fontFamily: "var(--font-sans)",
-              fontSize: "0.76rem",
+              fontSize: "0.72rem",
               fontWeight: 700,
-              letterSpacing: "0.08em",
+              letterSpacing: "0.12em",
               textTransform: "uppercase",
-              color: "#C2410C",
+              color: "var(--accent-pine)",
               marginBottom: "0.75rem"
             }}>
-              Pure Lab Transparency • Simple & Kind
+              Formulation Transparency
             </div>
 
             <h2 style={{ 
-              fontFamily: "var(--font-display)",
-              fontSize: "clamp(2rem, 3.4vw, 2.8rem)", 
-              fontWeight: 800, 
+              fontSize: "clamp(1.85rem, 3.2vw, 2.5rem)", 
+              fontWeight: 700, 
               lineHeight: 1.15, 
-              marginBottom: "1.25rem",
-              color: "var(--text-primary)"
+              marginBottom: "1.15rem",
+              color: "var(--text-main)"
             }}>
-              Active Clinical Science. <br />
-              <span style={{ color: "#71717A", fontWeight: 700 }}>
+              Clinical Active Science. <br />
+              <span style={{ color: "var(--text-caption)", fontWeight: 600 }}>
                 Zero compromise on barrier health.
               </span>
             </h2>

@@ -63,29 +63,27 @@ export const ClinicalResultsSection = () => {
         <div style={{ textAlign: "center", maxWidth: "720px", margin: "0 auto 3.5rem auto" }}>
           <span
             style={{
-              fontFamily: "var(--font-sans)",
-              fontSize: "0.76rem",
+              fontSize: "0.72rem",
               fontWeight: 700,
-              letterSpacing: "0.08em",
+              letterSpacing: "0.12em",
               textTransform: "uppercase",
-              color: "#C2410C",
+              color: "var(--accent-pine)",
               display: "inline-block",
               marginBottom: "0.5rem"
             }}
           >
-            Clinical Efficacy & Consumer Studies
+            Independent Consumer Studies
           </span>
           <h2
             style={{
-              fontSize: "clamp(2rem, 3.6vw, 2.8rem)",
-              fontFamily: "var(--font-display)",
-              fontWeight: 800,
-              color: "var(--text-primary)",
+              fontSize: "clamp(1.75rem, 3.2vw, 2.4rem)",
+              fontWeight: 700,
+              color: "var(--text-main)",
               lineHeight: 1.15,
               marginBottom: "0.75rem"
             }}
           >
-            Real People. Clinically Proven Results.
+            Real People. Verified Clinical Metrics.
           </h2>
           <p
             style={{

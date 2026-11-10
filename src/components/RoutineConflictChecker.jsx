@@ -23,7 +23,7 @@ export const RoutineConflictChecker = () => {
 
   return (
     <section style={{
-      backgroundColor: "#F7F5F0",
+      backgroundColor: "var(--bg-subtle)",
       padding: "4.5rem 0",
       borderBottom: "1px solid var(--border-light)"
     }}>
@@ -32,24 +32,22 @@ export const RoutineConflictChecker = () => {
         {/* Section Header */}
         <div style={{ textAlign: "center", maxWidth: "620px", margin: "0 auto 2.5rem auto" }}>
           <span style={{
-            fontFamily: "var(--font-sans)",
             fontSize: "0.72rem",
-            fontWeight: 600,
-            letterSpacing: "0.18em",
+            fontWeight: 700,
+            letterSpacing: "0.12em",
             textTransform: "uppercase",
-            color: "var(--accent-clay)",
+            color: "var(--accent-pine)",
             display: "inline-block",
             marginBottom: "0.5rem"
           }}>
-            Formulation Compatibility Protocol
+            Ingredient Compatibility Guide
           </span>
 
           <h2 style={{
-            fontFamily: "var(--font-display)",
-            fontSize: "clamp(1.9rem, 3.2vw, 2.6rem)",
-            fontWeight: 800,
-            letterSpacing: "-0.03em",
-            color: "var(--text-primary)",
+            fontSize: "clamp(1.75rem, 3vw, 2.35rem)",
+            fontWeight: 700,
+            letterSpacing: "-0.025em",
+            color: "var(--text-main)",
             margin: "2px 0 0.6rem 0"
           }}>
             Active Synergy & Layering Checker
@@ -105,7 +103,7 @@ export const RoutineConflictChecker = () => {
                 ))}
               </select>
               {productA && (
-                <div style={{ fontSize: "0.76rem", color: "var(--accent-sage)", fontWeight: 600, marginTop: "4px" }}>
+                <div style={{ fontSize: "0.75rem", color: "var(--accent-pine)", fontWeight: 600, marginTop: "6px" }}>
                   Active: {productA.keyActives}
                 </div>
               )}
@@ -153,7 +151,7 @@ export const RoutineConflictChecker = () => {
                 ))}
               </select>
               {productB && (
-                <div style={{ fontSize: "0.76rem", color: "var(--accent-sage)", fontWeight: 600, marginTop: "4px" }}>
+                <div style={{ fontSize: "0.75rem", color: "var(--accent-pine)", fontWeight: 600, marginTop: "6px" }}>
                   Active: {productB.keyActives}
                 </div>
               )}

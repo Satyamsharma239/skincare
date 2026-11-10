@@ -6,7 +6,7 @@ import { lookupPincode } from "../data/pincodeData";
 const StoreContext = createContext(null);
 const IS_DEV = Boolean(import.meta.env.DEV);
 const CONFIGURED_API = (import.meta.env.VITE_API_BASE_URL || "").replace(/\/$/, "");
-const SHOULD_SYNC_API = Boolean(CONFIGURED_API) || IS_DEV;
+const SHOULD_SYNC_API = Boolean(CONFIGURED_API);
 const API_BASE = CONFIGURED_API;
 
 export const StoreProvider = ({ children }) => {
@@ -23,13 +23,29 @@ export const StoreProvider = ({ children }) => {
   // Products
   const [products, setProducts] = useState(() => {
     try {
+      const catalogVer = localStorage.getItem("lumera_catalog_ver");
       const saved = localStorage.getItem("lumera_products");
+      if (catalogVer !== "2026_v5_curated16") {
+        localStorage.setItem("lumera_catalog_ver", "2026_v5_curated16");
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          if (Array.isArray(parsed)) {
+            const customAdminAdded = parsed.filter((p) => p && String(p.id).length > 10);
+            const savedStockMap = new Map(parsed.map((p) => [p.id, p]));
+            const refreshedInitial = INITIAL_PRODUCTS.map((master) => {
+              const prev = savedStockMap.get(master.id);
+              return prev ? { ...master, inStock: prev.inStock, stockCount: prev.stockCount } : master;
+            });
+            return [...customAdminAdded, ...refreshedInitial];
+          }
+        }
+        return INITIAL_PRODUCTS;
+      }
+
       if (saved) {
         const parsed = JSON.parse(saved);
         if (Array.isArray(parsed) && parsed.length > 0) {
-          const existingIds = new Set(parsed.map((p) => p.id));
-          const missing = INITIAL_PRODUCTS.filter((p) => !existingIds.has(p.id));
-          return [...parsed, ...missing];
+          return parsed;
         }
       }
       return INITIAL_PRODUCTS;
@@ -144,10 +160,20 @@ export const StoreProvider = ({ children }) => {
 
   const navigateTo = (route) => {
     if (route === "admin") {
-      window.location.hash = "/admin";
+      try {
+        window.history.pushState({}, "", "/admin");
+        window.dispatchEvent(new PopStateEvent("popstate"));
+      } catch {
+        window.location.hash = "/admin";
+      }
       setCurrentRoute("admin");
     } else {
-      window.location.hash = "";
+      try {
+        window.history.pushState({}, "", "/");
+        window.dispatchEvent(new PopStateEvent("popstate"));
+      } catch {
+        window.location.hash = "";
+      }
       setCurrentRoute("store");
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
@@ -375,7 +401,7 @@ export const StoreProvider = ({ children }) => {
         showToast("Removed from favorites", "info");
         return prev.filter((id) => id !== productId);
       } else {
-        showToast("Saved to favorites ❤️");
+        showToast("Saved to favorites", "success");
         return [...prev, productId];
       }
     });
@@ -398,7 +424,7 @@ export const StoreProvider = ({ children }) => {
       return false;
     }
     setAppliedCoupon(found);
-    showToast(`Promo code "${found.code}" applied! 🎉`);
+    showToast(`Promo code "${found.code}" applied!`, "success");
     return true;
   };
 

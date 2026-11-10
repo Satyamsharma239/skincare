@@ -43,15 +43,6 @@ export const AdminSettings = () => {
 
   return (
     <div>
-      <div style={{ marginBottom: "1.5rem" }}>
-        <h2 style={{ fontSize: "1.6rem", fontWeight: 600, margin: 0 }}>
-          Store Profile & WhatsApp Commerce Settings
-        </h2>
-        <p style={{ fontSize: "0.85rem", color: "var(--text-secondary)", margin: "2px 0 0 0" }}>
-          Configure your WhatsApp destination number, delivery fees, announcement bar, and store details.
-        </p>
-      </div>
-
       <form onSubmit={handleSave}>
         <div style={{
           display: "grid",
